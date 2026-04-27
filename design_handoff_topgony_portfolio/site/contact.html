@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"/><title>Topgony — Contact</title>
+<link rel="stylesheet" href="site.css"/>
+<style>
+.cm { padding:80px 32px; display:grid; grid-template-columns:1fr 1.2fr; gap:80px; border-bottom:1px solid var(--border-subtle); }
+.info { display:flex; flex-direction:column; gap:36px; }
+.info__c { border-top:1px solid var(--border-subtle); padding-top:18px; }
+.info__c h3 { font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); margin:0 0 10px; font-weight:400; }
+.info__c p { margin:0; font-family:var(--font-display); font-size:26px; font-weight:500; letter-spacing:-0.02em; line-height:1.2; }
+.info__c a { border-bottom:1px solid var(--border); padding-bottom:2px; transition: border-color var(--d-fast) var(--e-out); }
+.info__c a:hover { border-color:var(--text); }
+.info__c small { display:block; margin-top:8px; font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-wide); color:var(--text-muted); }
+.form { border:1px solid var(--border); padding:48px; background:var(--ink-050); position:relative; }
+.form::before { content:"— INQUIRY FORM"; position:absolute; top:-8px; left:24px; font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); background:#000; padding:0 10px; }
+.form__r { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:28px; }
+.form__f { display:flex; flex-direction:column; gap:8px; }
+.form__f--full { grid-column:1/-1; }
+.form__f label { font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); }
+.form__f input, .form__f textarea, .form__f select { background:transparent; border:0; border-bottom:1px solid var(--border); padding:12px 0; font-family:var(--font-body); font-size:16px; color:var(--text); width:100%; transition: border-color var(--d-fast) var(--e-out); }
+.form__f input::placeholder, .form__f textarea::placeholder { color:var(--ink-500); }
+.form__f input:focus, .form__f textarea:focus, .form__f select:focus { outline:none; border-bottom-color:var(--text); }
+.form__f textarea { resize:vertical; min-height:100px; }
+.form__a { display:flex; justify-content:space-between; align-items:center; padding-top:24px; border-top:1px solid var(--border-subtle); margin-top:24px; }
+.form__a span { font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-wide); color:var(--text-dim); text-transform:uppercase; }
+.proc { padding:0 32px 80px; display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border-subtle); border:1px solid var(--border-subtle); margin:0 32px 80px; }
+.proc__c { padding:28px; background:#000; min-height:200px; display:flex; flex-direction:column; }
+.proc__c h4 { font-family:var(--font-display); font-size:20px; font-weight:500; letter-spacing:-0.02em; margin:0 0 10px; }
+.proc__c p { margin:0 0 auto; font-size:13px; line-height:1.5; color:var(--text-muted); }
+.proc__n { font-family:var(--font-display); font-size:40px; font-weight:500; letter-spacing:-0.025em; line-height:1; margin-bottom:14px; }
+.proc__d { margin-top:16px; padding-top:10px; border-top:1px solid var(--border-subtle); font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); }
+.faq { padding:0 32px 80px; }
+.faq__i { display:grid; grid-template-columns:80px 1fr 2fr; gap:32px; padding:24px 0; border-bottom:1px solid var(--border-subtle); align-items:baseline; }
+.faq__no { font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-wide); color:var(--text-dim); }
+.faq__q { font-family:var(--font-display); font-size:22px; font-weight:500; letter-spacing:-0.018em; }
+.faq__a { font-size:15px; color:var(--text-muted); line-height:1.55; }
+</style></head><body>
+<div id="hd"></div>
+
+<section class="hero">
+  <div><div class="hero__k">— Contact / Start a project</div><h1>Say<br/><em>hello.</em></h1></div>
+  <div class="hero__s">NEXT AVAILABLE — 2026 Q3<br/>AVERAGE RESPONSE — 48H<br/><br/>OR JUST EMAIL DIRECTLY →<br/>HELLO@TOPGONY.FILM</div>
+</section>
+
+<section class="cm">
+  <div class="info">
+    <div class="info__c"><h3>— Email</h3><p><a href="mailto:hello@topgony.film">hello@topgony.film</a></p><small>업무 문의 · 평균 48시간 회신</small></div>
+    <div class="info__c"><h3>— Phone</h3><p>+82 10 0000 0000</p><small>평일 10:00 — 19:00 KST</small></div>
+    <div class="info__c"><h3>— Studio</h3><p>Seongsu-dong, Seoul<br/>성수동, 서울</p><small>미팅은 사전 예약제</small></div>
+    <div class="info__c"><h3>— Social</h3><p><a>Instagram</a> · <a>Vimeo</a> · <a>YouTube</a></p><small>@topgony.film 동일</small></div>
+    <div class="info__c"><h3>— Availability</h3><p>2026 Q3 — OPEN</p><small>급한 프로젝트는 별도 문의</small></div>
+  </div>
+
+  <form class="form" onsubmit="event.preventDefault(); alert('데모 — 실제 발송은 연결되지 않았습니다.');">
+    <div class="form__r">
+      <div class="form__f"><label>Name</label><input placeholder="홍길동"/></div>
+      <div class="form__f"><label>Email</label><input type="email" placeholder="you@studio.com"/></div>
+    </div>
+    <div class="form__r">
+      <div class="form__f"><label>Company / Brand</label><input placeholder="Studio Hexagon"/></div>
+      <div class="form__f"><label>Budget (KRW)</label>
+        <select><option>— 선택</option><option>~ 500만</option><option>500 — 1,500만</option><option>1,500 — 3,000만</option><option>3,000 — 7,000만</option><option>7,000만 +</option></select>
+      </div>
+    </div>
+    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Project type</label>
+      <div class="chips" id="ptype">
+        <button type="button" class="chip is-active">MUSIC VIDEO</button>
+        <button type="button" class="chip">BRAND FILM</button>
+        <button type="button" class="chip">FASHION</button>
+        <button type="button" class="chip">COMMERCIAL</button>
+        <button type="button" class="chip">EVENT</button>
+        <button type="button" class="chip">OTHER</button>
+      </div>
+    </div>
+    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Scope</label>
+      <div class="chips" id="pscope">
+        <button type="button" class="chip">촬영만</button>
+        <button type="button" class="chip is-active">촬영 + 편집</button>
+        <button type="button" class="chip">전 프로세스</button>
+      </div>
+    </div>
+    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Timeline</label><input placeholder="예: 2026년 6월 중순, 납품까지 4주"/></div>
+    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Brief</label><textarea placeholder="레퍼런스, 무드, 톤, 메시지 — 자유롭게."></textarea></div>
+    <div class="form__a"><span>응답까지 평균 48시간</span><button type="submit" class="btn btn--p">SEND INQUIRY →</button></div>
+  </form>
+</section>
+
+<div class="sh"><h2>Process.</h2><span>5 STEPS · ~4 WEEKS AVG</span></div>
+<section class="proc" id="proc"></section>
+
+<div class="sh"><h2>FAQ.</h2><span>5 · 자주 묻는 질문</span></div>
+<section class="faq" id="faq"></section>
+
+<div id="ft"></div>
+
+<script src="data.js"></script><script src="components.js"></script>
+<script>
+document.getElementById('hd').innerHTML = tplHeader('contact');
+document.getElementById('ft').innerHTML = tplFooter();
+
+document.getElementById('proc').innerHTML = TG.process.map(p =>
+  `<div class="proc__c"><div class="proc__n">${p.n}</div><h4>${p.t}</h4><p>${p.d}</p><div class="proc__d">${p.dur}</div></div>`
+).join('');
+
+document.getElementById('faq').innerHTML = TG.faq.map((f,i) =>
+  `<div class="faq__i"><span class="faq__no">— ${String(i+1).padStart(2,'0')}</span><h4 class="faq__q">${f.q}</h4><p class="faq__a">${f.a}</p></div>`
+).join('');
+
+['ptype','pscope'].forEach(id => {
+  const g = document.getElementById(id);
+  g.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+    g.querySelectorAll('.chip').forEach(x => x.classList.remove('is-active'));
+    c.classList.add('is-active');
+  }));
+});
+</script>
+</body></html>

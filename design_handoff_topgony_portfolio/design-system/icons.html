@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>Icons — Cinema DS</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 1px;
+  background: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
+}
+.icon-cell {
+  background: var(--bg);
+  aspect-ratio: 1/1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; padding: 16px;
+  transition: background var(--d-fast) var(--e-out);
+}
+.icon-cell:hover { background: var(--ink-050); }
+.icon-cell__name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+}
+.icon {
+  width: 28px; height: 28px;
+  stroke: var(--text);
+  stroke-width: 1.25;
+  fill: none;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+.icon--fill { fill: var(--text); stroke: none; }
+.ds-note.caption { margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div class="ds-page">
+  <div class="ds-head">
+    <div>
+      <div class="ds-head__eyebrow">Cinema DS / 08</div>
+      <h1 class="ds-head__title">Icons</h1>
+    </div>
+    <div class="ds-head__meta">
+      <div>24 × 24 GRID · 1.25 STROKE</div>
+      <div>GEOMETRIC · HAIRLINE</div>
+    </div>
+  </div>
+  <p class="ds-note caption">얇은 라인, 사각 캡, 기하학적 — 편집 프로그램의 HUD처럼 읽히도록.</p>
+
+  <div class="icon-grid">
+    <!-- PLAYBACK -->
+    <div class="icon-cell">
+      <svg class="icon icon--fill" viewBox="0 0 24 24"><path d="M7 4v16l14-8z"/></svg>
+      <span class="icon-cell__name">play</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon icon--fill" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      <span class="icon-cell__name">pause</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon icon--fill" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14"/></svg>
+      <span class="icon-cell__name">stop</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M4 12h16M4 12l5-5M4 12l5 5M20 4v16"/></svg>
+      <span class="icon-cell__name">prev</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M20 12H4M20 12l-5-5M20 12l-5 5M4 4v16"/></svg>
+      <span class="icon-cell__name">next</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none"/></svg>
+      <span class="icon-cell__name">watch</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 10v4l4 1 3 4h2V5h-2L7 9z"/><path d="M16 9c1.5 1 1.5 5 0 6M19 7c3 2.5 3 7.5 0 10"/></svg>
+      <span class="icon-cell__name">audio on</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 10v4l4 1 3 4h2V5h-2L7 9z"/><path d="M16 9l5 6M21 9l-5 6"/></svg>
+      <span class="icon-cell__name">audio off</span>
+    </div>
+
+    <!-- CAMERA / FILM -->
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="10"/><path d="M16 10l5-3v10l-5-3z"/></svg>
+      <span class="icon-cell__name">camera</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 8h16M4 16h16M8 4v16M16 4v16"/></svg>
+      <span class="icon-cell__name">film</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12"/><circle cx="12" cy="12" r="3.5"/><circle cx="17" cy="9" r="0.8" fill="currentColor" stroke="none"/></svg>
+      <span class="icon-cell__name">lens</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 5h18v10H3zM3 5l4-2h10l4 2M7 15v4M17 15v4M7 19h10"/></svg>
+      <span class="icon-cell__name">clapper</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12"/><path d="M3 9h18M3 15h18M6 12h2M10 12h2M14 12h2M18 12h0.5"/></svg>
+      <span class="icon-cell__name">timeline</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h7l2 3h7v13H4z"/></svg>
+      <span class="icon-cell__name">project</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12M12 15l-5-5M12 15l5-5M4 19h16"/></svg>
+      <span class="icon-cell__name">download</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 20V8M12 8L7 13M12 8l5 5M4 4h16"/></svg>
+      <span class="icon-cell__name">upload</span>
+    </div>
+
+    <!-- UI -->
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16l5 5"/></svg>
+      <span class="icon-cell__name">search</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <span class="icon-cell__name">menu</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      <span class="icon-cell__name">close</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M6 10l6 6 6-6"/></svg>
+      <span class="icon-cell__name">chevron</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span class="icon-cell__name">arrow</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+      <span class="icon-cell__name">external</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg>
+      <span class="icon-cell__name">grid</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-width="1.25"/><circle cx="4" cy="6" r="0.8" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="0.8" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="0.8" fill="currentColor" stroke="none"/></svg>
+      <span class="icon-cell__name">list</span>
+    </div>
+
+    <!-- MISC -->
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14"/><path d="M4 9l8 5 8-5"/></svg>
+      <span class="icon-cell__name">mail</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M5 5h3l2 5-2 2a10 10 0 005 5l2-2 5 2v3a1 1 0 01-1 1A16 16 0 014 6a1 1 0 011-1z"/></svg>
+      <span class="icon-cell__name">phone</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg>
+      <span class="icon-cell__name">add</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 20s-7-5-7-11a5 5 0 019-3 5 5 0 019 3c0 6-7 11-7 11z" fill="none"/></svg>
+      <span class="icon-cell__name">like</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <span class="icon-cell__name">clock</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l2.5 6 6.5.5-5 4.5 1.5 6.5L12 17l-5.5 3.5L8 14 3 9.5l6.5-.5z"/></svg>
+      <span class="icon-cell__name">feature</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 5-7 8-7s7 2 8 7"/></svg>
+      <span class="icon-cell__name">about</span>
+    </div>
+    <div class="icon-cell">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 7h18v12a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M8 7V4h8v3"/></svg>
+      <span class="icon-cell__name">archive</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

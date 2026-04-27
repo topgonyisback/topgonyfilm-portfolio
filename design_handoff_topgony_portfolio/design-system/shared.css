@@ -1,0 +1,81 @@
+/* Shared page chrome for every system card */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("./tokens.css");
+
+.ds-page {
+  min-height: 100vh;
+  padding: 48px 56px;
+  background: var(--bg);
+}
+.ds-page--pure { background: #000; }
+.ds-page--elev { background: var(--ink-050); }
+
+.ds-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+}
+.ds-head__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-meta);
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.ds-head__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  margin: 4px 0 0;
+  color: var(--text);
+}
+.ds-head__meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  color: var(--text-dim);
+  letter-spacing: var(--ls-wide);
+  text-align: right;
+}
+.ds-head__meta div + div { margin-top: 2px; }
+
+.ds-section-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-meta);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.ds-section-label::before{
+  content:""; width: 8px; height: 1px; background: var(--text-muted);
+}
+
+.ds-note {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--text-dim);
+  letter-spacing: var(--ls-wide);
+  line-height: 1.5;
+}
+
+.ds-kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: var(--ls-meta);
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+/* grid helper */
+.ds-grid { display: grid; gap: 24px; }
+.ds-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.ds-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.ds-grid--4 { grid-template-columns: repeat(4, 1fr); }

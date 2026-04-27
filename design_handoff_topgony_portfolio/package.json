@@ -1,0 +1,9 @@
+{
+  "name": "topgony-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx live-server site --port=3000 --open=/index.html",
+    "serve": "npx serve site -p 3000"
+  }
+}

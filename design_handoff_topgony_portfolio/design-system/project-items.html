@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>Project List Items — Cinema DS</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ========== VARIANT A — Editorial index row ========== */
+.idx {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr 180px 120px 80px;
+  gap: 24px;
+  padding: 20px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  align-items: baseline;
+  cursor: pointer;
+  position: relative;
+  transition: background var(--d-fast) var(--e-out);
+}
+.idx:hover { background: var(--ink-050); }
+.idx:hover .idx__preview { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.idx__no {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: var(--ls-wide); color: var(--text-dim);
+}
+.idx__title {
+  font-family: var(--font-display); font-size: 24px; font-weight: 500;
+  letter-spacing: -0.02em; color: var(--text);
+}
+.idx__client, .idx__role, .idx__year, .idx__dur {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+  color: var(--text-muted);
+}
+.idx__dur { color: var(--text); text-align: right; }
+.idx__preview {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 280px; aspect-ratio: 16/9;
+  background: repeating-linear-gradient(45deg, #0e0e0e 0 8px, #131313 8px 16px);
+  border: 1px solid var(--ink-400);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--d-base) var(--e-out), transform var(--d-base) var(--e-out);
+  z-index: 3;
+  box-shadow: var(--shadow-float);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 10px; color: var(--ink-500);
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+}
+
+/* ========== VARIANT B — Detail card (poster) ========== */
+.detail {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  border: 1px solid var(--border);
+  background: var(--ink-050);
+  margin-bottom: 32px;
+}
+.detail__poster {
+  aspect-ratio: 1/1.2;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 50%),
+    repeating-linear-gradient(45deg, #0b0b0b 0 12px, #111 12px 24px);
+  position: relative;
+  display: flex; align-items: flex-end; padding: 24px;
+}
+.detail__poster-tag {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-micro); text-transform: uppercase;
+  color: var(--text); border: 1px solid rgba(255,255,255,0.4);
+  padding: 4px 8px;
+}
+.detail__body {
+  padding: 40px;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.detail__head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding-bottom: 16px; border-bottom: 1px solid var(--border-subtle);
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+  color: var(--text-dim);
+}
+.detail__title {
+  font-family: var(--font-display); font-size: 54px; line-height: 1;
+  letter-spacing: -0.03em; font-weight: 500;
+  margin: 0;
+}
+.detail__lede {
+  font-size: 15px; color: var(--text-muted); line-height: 1.55;
+  max-width: 56ch;
+}
+.detail__meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+.detail__meta dt {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+  color: var(--text-dim); margin: 0 0 4px;
+}
+.detail__meta dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 15px; color: var(--text); letter-spacing: -0.01em;
+}
+.detail__footer {
+  margin-top: auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.detail__credits {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-wide); color: var(--text-dim);
+  text-transform: uppercase; line-height: 1.6;
+}
+
+/* ========== VARIANT C — Ticker strip (horizontal) ========== */
+.strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  padding: 24px 0;
+  display: flex; gap: 48px;
+  font-family: var(--font-display);
+  font-size: 40px; font-weight: 500; letter-spacing: -0.025em;
+  white-space: nowrap;
+  color: var(--text);
+  animation: ticker 30s linear infinite;
+}
+.strip span {
+  display: inline-flex; align-items: center; gap: 16px;
+}
+.strip span::after {
+  content: "·";
+  color: var(--text-dim);
+  margin-left: 32px;
+}
+.strip small {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: var(--ls-meta); color: var(--text-dim);
+  text-transform: uppercase;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ========== VARIANT D — Numbered table (archive) ========== */
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: var(--ls-wide);
+}
+.tbl th {
+  text-align: left;
+  font-weight: 400;
+  font-size: 10px; letter-spacing: var(--ls-meta);
+  text-transform: uppercase; color: var(--text-dim);
+  padding: 12px 8px; border-bottom: 1px solid var(--border);
+}
+.tbl td {
+  padding: 14px 8px; border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+}
+.tbl tr:hover td { color: var(--text); background: var(--ink-050); }
+.tbl__title {
+  font-family: var(--font-display); font-size: 16px;
+  font-weight: 500; letter-spacing: -0.015em; color: var(--text);
+  text-transform: none;
+}
+.tbl__dot { color: var(--text-dim); }
+</style>
+</head>
+<body>
+<div class="ds-page">
+  <div class="ds-head">
+    <div>
+      <div class="ds-head__eyebrow">Cinema DS / 10</div>
+      <h1 class="ds-head__title">Project List Items</h1>
+    </div>
+    <div class="ds-head__meta">
+      <div>4 VARIANTS · INDEX / POSTER / TICKER / TABLE</div>
+    </div>
+  </div>
+
+  <!-- A -->
+  <h3 class="ds-section-label">A — Editorial index (hover reveals preview)</h3>
+  <div>
+    <div class="idx">
+      <span class="idx__no">— 001</span>
+      <span class="idx__title">Night drive, no destination</span>
+      <span class="idx__client">ARC — MUSIC VIDEO</span>
+      <span class="idx__role">DIR · DP · EDIT</span>
+      <span class="idx__year">2024.11</span>
+      <span class="idx__dur">04:21</span>
+      <div class="idx__preview">[ PREVIEW · 16:9 ]</div>
+    </div>
+    <div class="idx">
+      <span class="idx__no">— 002</span>
+      <span class="idx__title">Paper lanterns</span>
+      <span class="idx__client">GOODNIGHT — MV</span>
+      <span class="idx__role">DIR · DP</span>
+      <span class="idx__year">2024.09</span>
+      <span class="idx__dur">03:42</span>
+      <div class="idx__preview">[ PREVIEW · 16:9 ]</div>
+    </div>
+    <div class="idx">
+      <span class="idx__no">— 003</span>
+      <span class="idx__title">SS26 silhouettes</span>
+      <span class="idx__client">ATELIER NOIR — FASHION</span>
+      <span class="idx__role">DP</span>
+      <span class="idx__year">2025.02</span>
+      <span class="idx__dur">01:58</span>
+      <div class="idx__preview">[ PREVIEW · 16:9 ]</div>
+    </div>
+    <div class="idx">
+      <span class="idx__no">— 004</span>
+      <span class="idx__title">Still water, moving light</span>
+      <span class="idx__client">HYUNDAI — CF</span>
+      <span class="idx__role">DIR · DP</span>
+      <span class="idx__year">2024.07</span>
+      <span class="idx__dur">00:30</span>
+      <div class="idx__preview">[ PREVIEW · 16:9 ]</div>
+    </div>
+  </div>
+
+  <!-- B -->
+  <h3 class="ds-section-label" style="margin-top:56px">B — Detail poster (project landing)</h3>
+  <div class="detail">
+    <div class="detail__poster">
+      <span class="detail__poster-tag">POSTER · 1:1.2</span>
+    </div>
+    <div class="detail__body">
+      <div class="detail__head">
+        <span>PROJECT / 001</span>
+        <span>2024 · KR / JP</span>
+      </div>
+      <h2 class="detail__title">Night drive,<br/>no destination.</h2>
+      <p class="detail__lede">서울 외곽, 해가 지고 나서야 시작되는 드라이브. 달리는 창 너머로 흘러가는 빛과 광고판, 사람의 그림자. 4분 21초 동안 멈추지 않는 운동을 담은 뮤직비디오.</p>
+      <dl class="detail__meta">
+        <div><dt>Client</dt><dd>ARC</dd></div>
+        <div><dt>Role</dt><dd>Director · DP</dd></div>
+        <div><dt>Camera</dt><dd>ARRI Alexa</dd></div>
+        <div><dt>Format</dt><dd>16:9 / 9:16</dd></div>
+      </dl>
+      <div class="detail__footer">
+        <div class="detail__credits">
+          PRODUCER — HK / EDITOR — JH KIM<br/>
+          COLOR — STUDIO HEXAGON · MUSIC — ARC
+        </div>
+        <button style="background:transparent; border:1px solid var(--text); color:var(--text); padding: 12px 20px; font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--ls-meta); text-transform: uppercase">
+          Watch film →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- C -->
+  <h3 class="ds-section-label" style="margin-top:40px">C — Ticker strip (marquee)</h3>
+  <div class="strip">
+    <span>Night drive <small>001 / 2024</small></span>
+    <span>Paper lanterns <small>002 / 2024</small></span>
+    <span>SS26 silhouettes <small>003 / 2025</small></span>
+    <span>Still water <small>004 / 2024</small></span>
+    <span>Gallery opening <small>005 / 2025</small></span>
+    <span>Night drive <small>001 / 2024</small></span>
+    <span>Paper lanterns <small>002 / 2024</small></span>
+    <span>SS26 silhouettes <small>003 / 2025</small></span>
+    <span>Still water <small>004 / 2024</small></span>
+    <span>Gallery opening <small>005 / 2025</small></span>
+  </div>
+
+  <!-- D -->
+  <h3 class="ds-section-label" style="margin-top:56px">D — Archive table</h3>
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th style="width:50px">#</th>
+        <th style="width:34%">Title</th>
+        <th>Client</th>
+        <th>Category</th>
+        <th>Role</th>
+        <th>Year</th>
+        <th style="text-align:right">Dur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>001</td><td class="tbl__title">Night drive, no destination</td><td>ARC</td><td>Music video</td><td>DIR · DP · EDIT</td><td>2024</td><td style="text-align:right; color: var(--text)">04:21</td></tr>
+      <tr><td>002</td><td class="tbl__title">Paper lanterns</td><td>Goodnight Studio</td><td>Music video</td><td>DIR · DP</td><td>2024</td><td style="text-align:right; color: var(--text)">03:42</td></tr>
+      <tr><td>003</td><td class="tbl__title">SS26 silhouettes</td><td>Atelier Noir</td><td>Fashion</td><td>DP</td><td>2025</td><td style="text-align:right; color: var(--text)">01:58</td></tr>
+      <tr><td>004</td><td class="tbl__title">Still water, moving light</td><td>Hyundai</td><td>Commercial</td><td>DIR · DP</td><td>2024</td><td style="text-align:right; color: var(--text)">00:30</td></tr>
+      <tr><td>005</td><td class="tbl__title">Gallery opening — Hyewon</td><td>Space K</td><td>Event</td><td>DP · EDIT</td><td>2025</td><td style="text-align:right; color: var(--text)">02:10</td></tr>
+      <tr><td>006</td><td class="tbl__title">Afterglow</td><td>Naver</td><td>Brand film</td><td>DP</td><td>2025</td><td style="text-align:right; color: var(--text)">01:24</td></tr>
+      <tr><td>007</td><td class="tbl__title">Rain check</td><td>Samsonite</td><td>Commercial</td><td>DIR</td><td>2025</td><td style="text-align:right; color: var(--text)">00:18</td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

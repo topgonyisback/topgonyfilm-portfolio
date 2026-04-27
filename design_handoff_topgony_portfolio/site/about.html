@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"/><title>Topgony — About</title>
+<link rel="stylesheet" href="site.css"/>
+<style>
+.pb { padding:80px 32px; display:grid; grid-template-columns:5fr 7fr; gap:64px; }
+.portrait { aspect-ratio:3/4; background: repeating-linear-gradient(135deg, #0c0c0c 0 12px, #131313 12px 24px); position:relative; }
+.portrait::after { content:"[ PORTRAIT · 3:4 ]"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:10px; color:var(--ink-500); letter-spacing:var(--ls-meta); text-transform:uppercase; }
+.bio { font-size:18px; line-height:1.65; color:var(--text); max-width:62ch; }
+.bio p { margin:0 0 22px; }
+.bio p:first-of-type::first-letter { font-family:var(--font-display); font-size:96px; font-weight:500; float:left; line-height:0.88; margin:6px 14px 0 0; letter-spacing:-0.04em; }
+.tl { padding:0 32px 48px; }
+.tl__r { display:grid; grid-template-columns:120px 1fr 2fr 180px; gap:32px; padding:18px 0; border-bottom:1px solid var(--border-subtle); align-items:baseline; }
+.tl__y { font-family:var(--font-display); font-size:28px; font-weight:500; letter-spacing:-0.02em; }
+.tl__role { font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text); }
+.tl__d { font-size:15px; color:var(--text-muted); line-height:1.5; }
+.tl__tag { font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); text-align:right; }
+.svc { padding:0 32px 80px; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border-subtle); border:1px solid var(--border-subtle); margin:0 32px 80px; }
+.svc__c { padding:32px; background:#000; min-height:220px; display:flex; flex-direction:column; }
+.svc__c h3 { font-family:var(--font-display); font-size:32px; font-weight:500; letter-spacing:-0.025em; margin:0 0 12px; }
+.svc__c p { margin:0 0 auto; font-size:14px; line-height:1.55; color:var(--text-muted); }
+.svc__no { font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); margin-bottom:14px; }
+.svc__m { padding-top:16px; margin-top:24px; border-top:1px solid var(--border-subtle); font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text); }
+.gear { padding:0 32px 80px; display:grid; grid-template-columns:repeat(3,1fr); gap:48px 32px; }
+.gear__c h4 { font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); font-weight:400; margin:0 0 10px; padding-bottom:6px; border-bottom:1px solid var(--border-subtle); }
+.gear__c ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:6px; font-size:14px; color:var(--text); }
+.press__r { display:grid; grid-template-columns:80px 1fr 2fr 120px; gap:32px; padding:18px 32px; border-bottom:1px solid var(--border-subtle); font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-wide); color:var(--text-muted); text-transform:uppercase; }
+.press__r strong { color:var(--text); font-weight:400; font-family:var(--font-display); font-size:16px; letter-spacing:-0.015em; text-transform:none; }
+.cta { padding:120px 32px; border-top:1px solid var(--border-subtle); display:grid; grid-template-columns:1fr auto; gap:48px; align-items:end; }
+.cta h2 { font-family:var(--font-display); font-size:clamp(64px,9vw,140px); font-weight:500; line-height:0.88; letter-spacing:-0.045em; margin:0; }
+.cta h2 em { font-style:normal; color:var(--text-dim); }
+.cta__r { display:flex; flex-direction:column; align-items:flex-end; gap:20px; }
+.cta__r span { font-family:var(--font-mono); font-size:14px; letter-spacing:var(--ls-wide); }
+</style></head><body>
+<div id="hd"></div>
+
+<section class="hero">
+  <div><div class="hero__k">— About / Topgony</div><h1>Frames that<br/><em>breathe</em> between<br/>cuts.</h1></div>
+  <div class="hero__s">DIRECTOR · DP<br/>SEOUL — SINCE 2019<br/><br/>42 FILMS · 30+ CLIENTS<br/>MV · BRAND · FASHION · CF</div>
+</section>
+
+<section class="pb">
+  <div class="portrait"></div>
+  <div class="bio">
+    <p>서울을 기반으로 활동하는 비디오그래퍼 Topgony. 뮤직비디오와 브랜드 필름을 중심으로, 빛과 움직임이 만드는 영화적 순간을 기록합니다.</p>
+    <p>영상 한 컷은 시간의 조각입니다. 속도와 호흡, 침묵이 교차하는 자리에서 프레임은 관객의 시선을 이끌고 그 안에 감정을 담습니다. Topgony의 작업은 기술적 완성도를 바탕으로 하되, 그 순간의 공기를 잃지 않는 것을 우선합니다.</p>
+    <p>2019년부터 독립적으로 활동을 시작, ARC, Hyundai, Naver, Atelier Noir 등 국내외 브랜드와 협업해 왔습니다. 16:9 랜드스케이프부터 9:16 버티컬까지 다양한 포맷에 대응합니다.</p>
+    <p>— 오래 붙잡고, 짧게 자르고, 가만히 기다립니다.</p>
+  </div>
+</section>
+
+<div class="sh"><h2>Timeline.</h2><span>2019 → 2026 · SELECTED MOMENTS</span></div>
+<section class="tl" id="tl"></section>
+
+<div class="sh"><h2>Services.</h2><span>6 CATEGORIES · INQUIRE FOR RATES</span></div>
+<section class="svc" id="svc"></section>
+
+<div class="sh"><h2>Tools<br/>of the trade.</h2><span>EQUIPMENT · OWN + RENT</span></div>
+<section class="gear" id="gear"></section>
+
+<div class="sh"><h2>Recognition.</h2><span>SELECTED · 2023 → 2025</span></div>
+<section id="press"></section>
+
+<section class="cta">
+  <h2>Let's make<br/>something <em>loud.</em></h2>
+  <div class="cta__r"><span>hello@topgony.film</span><a class="btn btn--p btn--lg" href="contact.html">START A PROJECT →</a></div>
+</section>
+
+<div id="ft"></div>
+
+<script src="data.js"></script><script src="components.js"></script>
+<script>
+document.getElementById('hd').innerHTML = tplHeader('about');
+document.getElementById('ft').innerHTML = tplFooter();
+
+document.getElementById('tl').innerHTML = TG.timeline.map(t =>
+  `<div class="tl__r"><div class="tl__y">${t.y}</div><div class="tl__role">${t.role}</div><div class="tl__d">${t.desc}</div><div class="tl__tag">${t.tag}</div></div>`
+).join('');
+
+document.getElementById('svc').innerHTML = TG.services.map(s =>
+  `<div class="svc__c"><span class="svc__no">— ${s.no}</span><h3>${s.t}</h3><p>${s.d}</p><div class="svc__m">${s.m}</div></div>`
+).join('');
+
+document.getElementById('gear').innerHTML = Object.entries(TG.gear).map(([k,v]) =>
+  `<div class="gear__c"><h4>— ${k}</h4><ul>${v.map(i => `<li>${i}</li>`).join('')}</ul></div>`
+).join('');
+
+document.getElementById('press').innerHTML = TG.press.map(p =>
+  `<div class="press__r"><span>${p.y}</span><strong>${p.t}</strong><span>${p.d}</span><span>${p.s}</span></div>`
+).join('');
+</script>
+</body></html>

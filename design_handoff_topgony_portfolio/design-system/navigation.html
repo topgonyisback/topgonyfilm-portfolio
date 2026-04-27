@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>Navigation — Cinema DS</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.nav-demo {
+  border: 1px solid var(--border);
+  margin-bottom: 40px;
+  background: #000;
+  position: relative;
+}
+.nav-demo__label {
+  position: absolute;
+  top: -10px; left: 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg);
+  padding: 0 8px;
+}
+
+/* ---------- NAV A: Horizontal bar ---------- */
+.nav-a {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 22px 32px;
+  border-bottom: 1px solid var(--border-subtle);
+  gap: 32px;
+}
+.nav-a__brand {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.nav-a__brand span { color: var(--text-dim); }
+.nav-a__items {
+  display: flex; gap: 28px; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+}
+.nav-a__item { color: var(--text-muted); transition: color var(--d-fast) var(--e-out); position: relative; padding-bottom: 4px; }
+.nav-a__item:hover { color: var(--text); }
+.nav-a__item--active { color: var(--text); }
+.nav-a__item--active::after {
+  content:""; position:absolute; left:0; right:0; bottom:-6px;
+  height: 1px; background: var(--text);
+}
+.nav-a__right {
+  display: flex; justify-content: flex-end; align-items: center; gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.nav-a__time { color: var(--text); }
+
+/* ---------- NAV B: Split — wordmark + overlay trigger ---------- */
+.nav-b {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 32px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+}
+.nav-b__word {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 500; letter-spacing: -0.02em;
+  text-transform: none;
+}
+.nav-b__idx { color: var(--text-dim); }
+.nav-b__menu {
+  display: inline-flex; align-items: center; gap: 10px; color: var(--text);
+  cursor: pointer;
+}
+.nav-b__menu-lines { display: inline-flex; flex-direction: column; gap: 4px; }
+.nav-b__menu-lines span { width: 24px; height: 1px; background: var(--text); display:block; }
+
+/* ---------- NAV C: Sidebar rail ---------- */
+.nav-c {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: 320px;
+}
+.nav-c__rail {
+  border-right: 1px solid var(--border-subtle);
+  padding: 32px 24px;
+  display: flex; flex-direction: column; gap: 32px;
+}
+.nav-c__brand {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 500; letter-spacing: -0.02em;
+}
+.nav-c__brand small {
+  display: block;
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: var(--ls-micro); text-transform: uppercase;
+  color: var(--text-dim); margin-top: 4px;
+  font-weight: 400;
+}
+.nav-c__section {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+.nav-c__link {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  gap: 8px; align-items: center;
+  padding: 6px 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.nav-c__link--active { color: var(--text); }
+.nav-c__link small { color: var(--text-dim); font-size: 10px; }
+.nav-c__body {
+  padding: 40px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ---------- FULL OVERLAY ---------- */
+.overlay-demo {
+  position: relative;
+  min-height: 540px;
+  background:
+    repeating-linear-gradient(45deg, #0e0e0e 0 10px, #131313 10px 20px);
+  overflow: hidden;
+}
+.overlay-menu {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.96);
+  padding: 48px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+.overlay-menu__top {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+  color: var(--text-muted);
+}
+.overlay-menu__links {
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 4px;
+  margin: 48px 0;
+}
+.overlay-menu__link {
+  display: flex; align-items: baseline; gap: 24px;
+  font-family: var(--font-display);
+  font-size: 76px; line-height: .95;
+  letter-spacing: -0.03em; font-weight: 500;
+  color: var(--text);
+  transition: color var(--d-base) var(--e-out);
+  cursor: pointer;
+}
+.overlay-menu__link:hover { color: var(--text-dim); }
+.overlay-menu__link small {
+  font-family: var(--font-mono);
+  font-size: 11px; color: var(--text-dim);
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+}
+.overlay-menu__bottom {
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ---------- Breadcrumb ---------- */
+.crumbs {
+  padding: 24px 32px;
+  display: flex; gap: 12px; align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.crumbs__sep { color: var(--text-dim); }
+.crumbs__current { color: var(--text); }
+
+/* Footer */
+.footer {
+  padding: 48px 32px 24px;
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+.footer__brand { font-family: var(--font-display); font-size: 48px; font-weight:500; letter-spacing: -0.03em; line-height: 1; }
+.footer__brand small { display:block; font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--ls-meta); color: var(--text-dim); margin-top: 12px; text-transform: uppercase; font-weight:400; }
+.footer__col h5 {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--ls-meta);
+  text-transform: uppercase; color: var(--text-dim); font-weight: 400;
+  margin: 0 0 14px;
+}
+.footer__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.footer__col a { font-size: 14px; color: var(--text); }
+.footer__col a:hover { color: var(--text-muted); }
+.footer__meta {
+  grid-column: 1 / -1;
+  padding-top: 24px; margin-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+  color: var(--text-dim);
+}
+</style>
+</head>
+<body>
+<div class="ds-page">
+  <div class="ds-head">
+    <div>
+      <div class="ds-head__eyebrow">Cinema DS / 06</div>
+      <h1 class="ds-head__title">Navigation</h1>
+    </div>
+    <div class="ds-head__meta">
+      <div>4 PATTERNS · HEADER / RAIL / OVERLAY / FOOTER</div>
+    </div>
+  </div>
+
+  <!-- A -->
+  <div class="nav-demo">
+    <span class="nav-demo__label">A · Horizontal bar</span>
+    <nav class="nav-a">
+      <div class="nav-a__brand">TOPGONY<span>.</span></div>
+      <div class="nav-a__items">
+        <a class="nav-a__item nav-a__item--active">Work</a>
+        <a class="nav-a__item">Reels</a>
+        <a class="nav-a__item">About</a>
+        <a class="nav-a__item">Journal</a>
+        <a class="nav-a__item">Contact</a>
+      </div>
+      <div class="nav-a__right">
+        <span>SEL · SEOUL</span>
+        <span class="nav-a__time">23:08 KST</span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- B -->
+  <div class="nav-demo">
+    <span class="nav-demo__label">B · Wordmark + overlay trigger</span>
+    <nav class="nav-b">
+      <div class="nav-b__idx">INDEX / 042 WORKS</div>
+      <div class="nav-b__word">topgony.</div>
+      <div class="nav-b__menu">
+        <span>MENU</span>
+        <span class="nav-b__menu-lines"><span></span><span></span></span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- C -->
+  <div class="nav-demo">
+    <span class="nav-demo__label">C · Sidebar rail</span>
+    <div class="nav-c">
+      <aside class="nav-c__rail">
+        <div class="nav-c__brand">TOPGONY<small>Director · DP — Seoul</small></div>
+        <div>
+          <div class="nav-c__section">— Works</div>
+          <a class="nav-c__link nav-c__link--active"><span>01</span><span>All</span><small>42</small></a>
+          <a class="nav-c__link"><span>02</span><span>Music video</span><small>14</small></a>
+          <a class="nav-c__link"><span>03</span><span>Brand film</span><small>09</small></a>
+          <a class="nav-c__link"><span>04</span><span>Fashion</span><small>08</small></a>
+          <a class="nav-c__link"><span>05</span><span>Commercial</span><small>07</small></a>
+          <a class="nav-c__link"><span>06</span><span>Event</span><small>04</small></a>
+        </div>
+        <div>
+          <div class="nav-c__section">— Info</div>
+          <a class="nav-c__link"><span></span><span>About</span><small>↗</small></a>
+          <a class="nav-c__link"><span></span><span>Contact</span><small>↗</small></a>
+        </div>
+      </aside>
+      <div class="nav-c__body">
+        [ MAIN — GALLERY GRID RENDERS HERE ]
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb -->
+  <div class="nav-demo">
+    <span class="nav-demo__label">D · Breadcrumb</span>
+    <div class="crumbs">
+      <span>TOPGONY</span>
+      <span class="crumbs__sep">/</span>
+      <span>WORK</span>
+      <span class="crumbs__sep">/</span>
+      <span>MUSIC VIDEO</span>
+      <span class="crumbs__sep">/</span>
+      <span class="crumbs__current">001 — NIGHT DRIVE</span>
+    </div>
+  </div>
+
+  <!-- Full overlay -->
+  <div class="nav-demo">
+    <span class="nav-demo__label">E · Full-screen menu overlay</span>
+    <div class="overlay-demo">
+      <div class="overlay-menu">
+        <div class="overlay-menu__top">
+          <span>— MENU</span>
+          <span>CLOSE ✕</span>
+        </div>
+        <div class="overlay-menu__links">
+          <a class="overlay-menu__link"><small>01</small>Work</a>
+          <a class="overlay-menu__link"><small>02</small>Reels / 9:16</a>
+          <a class="overlay-menu__link"><small>03</small>About</a>
+          <a class="overlay-menu__link"><small>04</small>Journal</a>
+          <a class="overlay-menu__link"><small>05</small>Contact</a>
+        </div>
+        <div class="overlay-menu__bottom">
+          <span>© 2026 — TOPGONY · FILM</span>
+          <span>INSTAGRAM · VIMEO · YOUTUBE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <h3 class="ds-section-label" style="margin-top:48px">Footer</h3>
+  <div style="background:#000; border: 1px solid var(--border)">
+    <div class="footer">
+      <div>
+        <div class="footer__brand">topgony.<small>Director · DP — Seoul</small></div>
+      </div>
+      <div class="footer__col">
+        <h5>— Navigate</h5>
+        <ul>
+          <li><a>Work</a></li>
+          <li><a>Reels</a></li>
+          <li><a>About</a></li>
+          <li><a>Journal</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h5>— Contact</h5>
+        <ul>
+          <li><a>hello@topgony.film</a></li>
+          <li><a>+82 10 0000 0000</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h5>— Social</h5>
+        <ul>
+          <li><a>Instagram ↗</a></li>
+          <li><a>Vimeo ↗</a></li>
+          <li><a>YouTube ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer__meta">
+        <span>© 2026 — TOPGONY · ALL RIGHTS RESERVED</span>
+        <span>SEOUL · SINCE 2019</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

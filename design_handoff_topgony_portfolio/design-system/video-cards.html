@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>Video Cards — Cinema DS</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ---- Shared thumb helpers ---- */
+.thumb {
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0a;
+  isolation: isolate;
+}
+.thumb__placeholder {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0) 40%),
+    repeating-linear-gradient(45deg, #0e0e0e 0 8px, #131313 8px 16px);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+  color: var(--ink-500);
+  text-transform: uppercase;
+}
+.thumb__tc {
+  position: absolute;
+  left: 10px; bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-wide);
+  color: var(--text);
+  background: rgba(0,0,0,0.55);
+  padding: 3px 6px;
+  backdrop-filter: blur(4px);
+}
+.thumb__duration {
+  position: absolute;
+  right: 10px; bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text);
+  background: rgba(0,0,0,0.55);
+  padding: 3px 6px;
+}
+.thumb__tag {
+  position: absolute;
+  top: 10px; left: 10px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: var(--ls-micro);
+  text-transform: uppercase;
+  color: var(--text);
+  padding: 4px 8px;
+  border: 1px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(4px);
+}
+.thumb__badge--vert {
+  position: absolute;
+  top: 10px; right: 10px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: var(--ls-micro);
+  padding: 3px 6px;
+  background: var(--text);
+  color: #000;
+}
+
+/* Hover overlay for interactive card */
+.card {
+  cursor: pointer;
+  transition: transform var(--d-base) var(--e-out);
+}
+.card:hover .thumb img,
+.card:hover .thumb__placeholder { transform: scale(1.04); }
+.thumb img, .thumb__placeholder { transition: transform var(--d-slow) var(--e-out); }
+
+/* =====================================================
+   TYPE A — Full-bleed 16:9 with overlay hover
+   ===================================================== */
+.card--bleed .thumb { aspect-ratio: 16/9; }
+.card--bleed .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0) 55%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity var(--d-base) var(--e-out);
+}
+.card--bleed:hover .overlay { opacity: 1; }
+.card--bleed .overlay__title {
+  font-family: var(--font-display);
+  font-size: 28px; line-height: 1; letter-spacing: -0.02em;
+  font-weight: 500;
+  margin: 0;
+}
+.card--bleed .overlay__meta {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+  color: var(--ink-600);
+  text-transform: uppercase;
+}
+
+/* =====================================================
+   TYPE B — Thumb + meta below (magazine)
+   ===================================================== */
+.card--meta .thumb { aspect-ratio: 16/9; }
+.card--meta .meta {
+  padding: 14px 0 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 16px;
+  align-items: baseline;
+}
+.card--meta .meta__index {
+  grid-row: 1 / span 2;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: var(--ls-wide);
+}
+.card--meta .meta__title {
+  font-family: var(--font-display);
+  font-size: 20px; letter-spacing: -0.02em;
+  font-weight: 500;
+  margin: 0;
+}
+.card--meta .meta__client {
+  grid-column: 2 / 3; grid-row: 1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: right;
+}
+.card--meta .meta__tags {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-wide);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: 4px;
+  display: flex; justify-content: space-between;
+}
+
+/* =====================================================
+   TYPE C — Vertical 9:16 card (reels/shorts)
+   ===================================================== */
+.card--vertical .thumb { aspect-ratio: 9/16; }
+.card--vertical .meta {
+  padding: 10px 0 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-wide);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  display: flex; justify-content: space-between;
+}
+.card--vertical .meta strong {
+  color: var(--text); font-weight: 400; letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-size: 14px; text-transform: none;
+}
+
+/* =====================================================
+   TYPE D — Feature / hero (full bleed, big)
+   ===================================================== */
+.card--feature .thumb { aspect-ratio: 21/9; }
+.card--feature .feature-body {
+  position: absolute; inset: 0;
+  padding: 40px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  color: var(--text);
+}
+.card--feature .feature-body::before {
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0) 60%);
+}
+.card--feature .feature-top,
+.card--feature .feature-bottom { position: relative; }
+.card--feature .feature-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: var(--ls-meta);
+  color: var(--ink-700); text-transform: uppercase;
+}
+.card--feature h3 {
+  font-family: var(--font-display);
+  font-size: 56px; line-height: 1; letter-spacing: -0.03em;
+  font-weight: 500;
+  margin: 0;
+  max-width: 60%;
+}
+.card--feature .feature-bottom {
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.card--feature .feature-bottom .btn--play { width: 72px; height: 72px; font-size: 9px; }
+
+/* =====================================================
+   TYPE E — List row (compact)
+   ===================================================== */
+.row {
+  display: grid;
+  grid-template-columns: 110px 40px 1fr 160px 140px 60px;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: background var(--d-fast) var(--e-out), padding var(--d-base) var(--e-out);
+}
+.row:hover { background: var(--ink-050); padding-left: 12px; padding-right: 12px; }
+.row .thumb { aspect-ratio: 16/9; width: 110px; }
+.row__idx {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-dim); letter-spacing: var(--ls-wide);
+}
+.row__title {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 500; letter-spacing: -0.015em;
+}
+.row__client, .row__date, .row__dur {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.row__dur { text-align: right; color: var(--text); }
+
+/* ----- magazine grid ----- */
+.mag {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+</style>
+</head>
+<body>
+<div class="ds-page">
+  <div class="ds-head">
+    <div>
+      <div class="ds-head__eyebrow">Cinema DS / 05</div>
+      <h1 class="ds-head__title">Video Cards</h1>
+    </div>
+    <div class="ds-head__meta">
+      <div>5 VARIANTS · 16:9 / 9:16 / 21:9</div>
+      <div>MAGAZINE GRID</div>
+    </div>
+  </div>
+
+  <!-- FEATURE -->
+  <h3 class="ds-section-label">A — Feature card (21:9)</h3>
+  <div class="card card--feature">
+    <div class="thumb">
+      <div class="thumb__placeholder">[ HERO STILL · 21:9 · COLOR GRADE ]</div>
+      <div class="feature-body">
+        <div class="feature-top">
+          <span>FEATURED — 001</span>
+          <span>2024 / DIRECTED &amp; SHOT</span>
+        </div>
+        <div class="feature-bottom">
+          <div>
+            <h3>Night drive,<br/>no destination.</h3>
+            <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--ink-600); margin-top:12px">
+              Music video · for ARC — Seoul
+            </div>
+          </div>
+          <button class="btn btn--play" style="border-color: #fff; color:#fff">
+            <svg width="18" height="18" viewBox="0 0 22 22" fill="currentColor"><path d="M6 3l13 8-13 8V3z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAGAZINE MIX -->
+  <h3 class="ds-section-label" style="margin-top:56px">B — Magazine mix (16:9 w/ meta + bleed hover)</h3>
+  <div class="mag">
+    <div class="card card--meta" style="grid-column: span 7">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ MUSIC VIDEO · 16:9 ]</div>
+        <span class="thumb__tag">MUSIC VIDEO</span>
+        <span class="thumb__duration">03:42</span>
+      </div>
+      <div class="meta">
+        <span class="meta__index">— 002</span>
+        <h4 class="meta__title">Paper lanterns</h4>
+        <span class="meta__client">GOODNIGHT STUDIO</span>
+        <div class="meta__tags">
+          <span>DIR. / DP / EDIT</span>
+          <span>2024 · SEOUL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card--bleed" style="grid-column: span 5">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ BRAND FILM · HOVER ME ]</div>
+        <span class="thumb__tag">BRAND FILM</span>
+        <span class="thumb__tc">00:01:08:22</span>
+        <div class="overlay">
+          <p class="overlay__title">Kinfolk — Autumn</p>
+          <div class="overlay__meta">AGENCY X · 2024</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card--meta" style="grid-column: span 4">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ FASHION FILM · 16:9 ]</div>
+        <span class="thumb__tag">FASHION</span>
+        <span class="thumb__duration">01:58</span>
+      </div>
+      <div class="meta">
+        <span class="meta__index">— 003</span>
+        <h4 class="meta__title">SS26 Silhouettes</h4>
+        <span class="meta__client">ATELIER NOIR</span>
+        <div class="meta__tags">
+          <span>DP</span>
+          <span>2025</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card--meta" style="grid-column: span 4">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ COMMERCIAL · 16:9 ]</div>
+        <span class="thumb__tag">CF</span>
+        <span class="thumb__duration">00:30</span>
+      </div>
+      <div class="meta">
+        <span class="meta__index">— 004</span>
+        <h4 class="meta__title">Still water, moving light</h4>
+        <span class="meta__client">HYUNDAI</span>
+        <div class="meta__tags">
+          <span>DIR. / DP</span>
+          <span>2024</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card--meta" style="grid-column: span 4">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ EVENT · 16:9 ]</div>
+        <span class="thumb__tag">EVENT</span>
+        <span class="thumb__duration">02:10</span>
+      </div>
+      <div class="meta">
+        <span class="meta__index">— 005</span>
+        <h4 class="meta__title">Gallery opening — Hyewon</h4>
+        <span class="meta__client">SPACE K</span>
+        <div class="meta__tags">
+          <span>SHOOT / CUT</span>
+          <span>2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERTICAL -->
+  <h3 class="ds-section-label" style="margin-top:56px">C — Vertical reels (9:16)</h3>
+  <div style="display:grid; grid-template-columns: repeat(6, 1fr); gap: 16px">
+    <div class="card card--vertical">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ 9:16 REEL ]</div>
+        <span class="thumb__badge--vert">9:16</span>
+        <span class="thumb__duration">00:15</span>
+      </div>
+      <div class="meta"><strong>City pulse</strong><span>MV · 2025</span></div>
+    </div>
+    <div class="card card--vertical">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ 9:16 REEL ]</div>
+        <span class="thumb__badge--vert">9:16</span>
+        <span class="thumb__duration">00:30</span>
+      </div>
+      <div class="meta"><strong>Soft focus</strong><span>CF · 2024</span></div>
+    </div>
+    <div class="card card--vertical">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ 9:16 REEL ]</div>
+        <span class="thumb__badge--vert">9:16</span>
+        <span class="thumb__duration">00:09</span>
+      </div>
+      <div class="meta"><strong>Blur</strong><span>REEL · 2025</span></div>
+    </div>
+    <div class="card card--vertical">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ 9:16 REEL ]</div>
+        <span class="thumb__badge--vert">9:16</span>
+        <span class="thumb__duration">00:22</span>
+      </div>
+      <div class="meta"><strong>Afterglow</strong><span>FASHION</span></div>
+    </div>
+    <div class="card card--vertical">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ 9:16 REEL ]</div>
+        <span class="thumb__badge--vert">9:16</span>
+        <span class="thumb__duration">00:18</span>
+      </div>
+      <div class="meta"><strong>Rain check</strong><span>CF · 2025</span></div>
+    </div>
+    <div class="card card--vertical">
+      <div class="thumb">
+        <div class="thumb__placeholder">[ 9:16 REEL ]</div>
+        <span class="thumb__badge--vert">9:16</span>
+        <span class="thumb__duration">00:12</span>
+      </div>
+      <div class="meta"><strong>Midnight</strong><span>MV · 2024</span></div>
+    </div>
+  </div>
+
+  <!-- LIST -->
+  <h3 class="ds-section-label" style="margin-top:56px">D — List row (compact index)</h3>
+  <div style="border-top: 1px solid var(--border)">
+    <div class="row">
+      <div class="thumb"><div class="thumb__placeholder">16:9</div></div>
+      <div class="row__idx">— 001</div>
+      <div class="row__title">Night drive, no destination</div>
+      <div class="row__client">ARC — MUSIC VIDEO</div>
+      <div class="row__date">2024.11</div>
+      <div class="row__dur">04:21</div>
+    </div>
+    <div class="row">
+      <div class="thumb"><div class="thumb__placeholder">16:9</div></div>
+      <div class="row__idx">— 002</div>
+      <div class="row__title">Paper lanterns</div>
+      <div class="row__client">GOODNIGHT — MV</div>
+      <div class="row__date">2024.09</div>
+      <div class="row__dur">03:42</div>
+    </div>
+    <div class="row">
+      <div class="thumb"><div class="thumb__placeholder">16:9</div></div>
+      <div class="row__idx">— 003</div>
+      <div class="row__title">SS26 Silhouettes</div>
+      <div class="row__client">ATELIER NOIR — FASHION</div>
+      <div class="row__date">2025.02</div>
+      <div class="row__dur">01:58</div>
+    </div>
+    <div class="row">
+      <div class="thumb"><div class="thumb__placeholder">16:9</div></div>
+      <div class="row__idx">— 004</div>
+      <div class="row__title">Still water, moving light</div>
+      <div class="row__client">HYUNDAI — CF</div>
+      <div class="row__date">2024.07</div>
+      <div class="row__dur">00:30</div>
+    </div>
+    <div class="row">
+      <div class="thumb"><div class="thumb__placeholder">16:9</div></div>
+      <div class="row__idx">— 005</div>
+      <div class="row__title">Gallery opening — Hyewon</div>
+      <div class="row__client">SPACE K — EVENT</div>
+      <div class="row__date">2025.03</div>
+      <div class="row__dur">02:10</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

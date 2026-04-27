@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>Spacing & Grid — Cinema DS</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.scale {
+  display: grid;
+  grid-template-columns: 100px 1fr 120px;
+  gap: 16px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.scale__name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.scale__bar {
+  height: 18px;
+  background: var(--ink-700);
+}
+.scale__val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-wide);
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.grid-demo {
+  margin-top: 56px;
+  position: relative;
+  border: 1px solid var(--border);
+  padding: 32px;
+  background: var(--ink-050);
+}
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+.grid-12 > div {
+  height: 64px;
+  background: var(--ink-200);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-wide);
+  color: var(--text-muted);
+}
+
+.layout-row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.layout-row > div {
+  border: 1px dashed var(--border);
+  padding: 24px 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-wide);
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.radii {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+}
+.radii__card {
+  aspect-ratio: 1/1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex; align-items: flex-end; padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ratios {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+  align-items: end;
+}
+.ratios__group-title {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 16px 0 -8px;
+  display: flex; align-items: center; gap: 10px;
+}
+.ratios__group-title::before { content:""; width: 6px; height: 1px; background: var(--text-dim); }
+.ratio-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: var(--ls-wide);
+  color: var(--text);
+}
+.ratio-box::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: repeating-linear-gradient(135deg, transparent 0 12px, rgba(255,255,255,0.02) 12px 13px);
+  pointer-events: none;
+}
+.ratio-169 { aspect-ratio: 16/9; grid-column: span 3; }
+.ratio-219 { aspect-ratio: 21/9; grid-column: span 3; }
+.ratio-916 { aspect-ratio: 9/16; grid-column: span 1; }
+.ratio-11 { aspect-ratio: 1/1; grid-column: span 2; }
+.ratio-32 { aspect-ratio: 3/2; grid-column: span 2; }  /* 35mm photo */
+.ratio-43 { aspect-ratio: 4/3; grid-column: span 2; }  /* classic / MFT */
+.ratio-23 { aspect-ratio: 2/3; grid-column: span 1; }  /* portrait */
+.ratio-54 { aspect-ratio: 5/4; grid-column: span 2; }  /* medium format */
+.ratio-45 { aspect-ratio: 4/5; grid-column: span 1; }  /* instagram portrait */
+.ratio-label {
+  position: relative; z-index: 1;
+  text-align: center;
+}
+.ratio-label em {
+  display: block;
+  font-style: normal;
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+<div class="ds-page">
+  <div class="ds-head">
+    <div>
+      <div class="ds-head__eyebrow">Cinema DS / 03</div>
+      <h1 class="ds-head__title">Spacing &amp; Grid</h1>
+    </div>
+    <div class="ds-head__meta">
+      <div>8PT BASE · 12-COL · VIDEO + PHOTO RATIOS</div>
+      <div>DENSE LAYOUT</div>
+    </div>
+  </div>
+
+  <h3 class="ds-section-label">Spacing scale (s-0 → s-12)</h3>
+  <div class="scale"><div class="scale__name">s-1</div><div><div class="scale__bar" style="width:2px"></div></div><div class="scale__val">2px</div></div>
+  <div class="scale"><div class="scale__name">s-2</div><div><div class="scale__bar" style="width:4px"></div></div><div class="scale__val">4px</div></div>
+  <div class="scale"><div class="scale__name">s-3</div><div><div class="scale__bar" style="width:8px"></div></div><div class="scale__val">8px</div></div>
+  <div class="scale"><div class="scale__name">s-4</div><div><div class="scale__bar" style="width:12px"></div></div><div class="scale__val">12px</div></div>
+  <div class="scale"><div class="scale__name">s-5</div><div><div class="scale__bar" style="width:16px"></div></div><div class="scale__val">16px</div></div>
+  <div class="scale"><div class="scale__name">s-6</div><div><div class="scale__bar" style="width:24px"></div></div><div class="scale__val">24px</div></div>
+  <div class="scale"><div class="scale__name">s-7</div><div><div class="scale__bar" style="width:32px"></div></div><div class="scale__val">32px</div></div>
+  <div class="scale"><div class="scale__name">s-8</div><div><div class="scale__bar" style="width:48px"></div></div><div class="scale__val">48px</div></div>
+  <div class="scale"><div class="scale__name">s-9</div><div><div class="scale__bar" style="width:64px"></div></div><div class="scale__val">64px</div></div>
+  <div class="scale"><div class="scale__name">s-10</div><div><div class="scale__bar" style="width:96px"></div></div><div class="scale__val">96px</div></div>
+  <div class="scale"><div class="scale__name">s-11</div><div><div class="scale__bar" style="width:128px"></div></div><div class="scale__val">128px</div></div>
+  <div class="scale"><div class="scale__name">s-12</div><div><div class="scale__bar" style="width:192px"></div></div><div class="scale__val">192px</div></div>
+
+  <h3 class="ds-section-label" style="margin-top:56px">12-column grid · 16px gutter · 32px margin</h3>
+  <div class="grid-demo">
+    <div class="grid-12">
+      <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
+      <div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div>
+    </div>
+  </div>
+
+  <h3 class="ds-section-label" style="margin-top:48px">Common layouts</h3>
+  <div style="border:1px solid var(--border); padding:24px; background: var(--ink-050)">
+    <div class="ds-note" style="margin-bottom:12px">HERO — 8 / 4</div>
+    <div class="layout-row">
+      <div style="grid-column: span 8">SPAN 8 · headline</div>
+      <div style="grid-column: span 4">SPAN 4 · meta</div>
+    </div>
+    <div class="ds-note" style="margin:16px 0 12px">GALLERY — 4 / 4 / 4</div>
+    <div class="layout-row">
+      <div style="grid-column: span 4">SPAN 4</div>
+      <div style="grid-column: span 4">SPAN 4</div>
+      <div style="grid-column: span 4">SPAN 4</div>
+    </div>
+    <div class="ds-note" style="margin:16px 0 12px">MAGAZINE MIX — 6 / 3 / 3</div>
+    <div class="layout-row">
+      <div style="grid-column: span 6">SPAN 6 · feature</div>
+      <div style="grid-column: span 3">SPAN 3</div>
+      <div style="grid-column: span 3">SPAN 3</div>
+    </div>
+    <div class="ds-note" style="margin:16px 0 12px">VERTICAL STRIP — 3 / 3 / 3 / 3 (9:16 territory)</div>
+    <div class="layout-row">
+      <div style="grid-column: span 3">SPAN 3</div>
+      <div style="grid-column: span 3">SPAN 3</div>
+      <div style="grid-column: span 3">SPAN 3</div>
+      <div style="grid-column: span 3">SPAN 3</div>
+    </div>
+  </div>
+
+  <h3 class="ds-section-label" style="margin-top:48px">Radii</h3>
+  <div class="radii">
+    <div class="radii__card" style="border-radius: var(--r-0)">r-0 · 0</div>
+    <div class="radii__card" style="border-radius: var(--r-1)">r-1 · 2px</div>
+    <div class="radii__card" style="border-radius: var(--r-2)">r-2 · 4px</div>
+    <div class="radii__card" style="border-radius: var(--r-3)">r-3 · 8px</div>
+    <div class="radii__card" style="border-radius: var(--r-full)">r-full</div>
+  </div>
+  <p class="ds-note" style="margin-top:12px">에디토리얼 무드 유지를 위해 기본은 r-0, 버튼·칩은 r-full 또는 r-1 까지만.</p>
+
+  <h3 class="ds-section-label" style="margin-top:48px">Aspect ratios — media containers</h3>
+  <p class="ds-note" style="margin-bottom:16px">영상용 비율과 사진용 비율을 함께 지원. 포트폴리오 갤러리에서 스틸컷 / BTS 사진을 섞어 배치할 때 사용.</p>
+  <div class="ratios">
+    <div class="ratios__group-title">Video — moving image</div>
+    <div class="ratio-box ratio-219">
+      <div class="ratio-label">21:9<em>Cinemascope · hero</em></div>
+    </div>
+    <div class="ratio-box ratio-169">
+      <div class="ratio-label">16:9<em>Primary · landscape</em></div>
+    </div>
+    <div class="ratio-box ratio-916">
+      <div class="ratio-label">9:16<em>Reels · vertical</em></div>
+    </div>
+    <div class="ratio-box ratio-11">
+      <div class="ratio-label">1:1<em>Social · tile</em></div>
+    </div>
+
+    <div class="ratios__group-title">Photo — stills · BTS</div>
+    <div class="ratio-box ratio-32">
+      <div class="ratio-label">3:2<em>35mm · DSLR landscape</em></div>
+    </div>
+    <div class="ratio-box ratio-43">
+      <div class="ratio-label">4:3<em>Classic · MFT</em></div>
+    </div>
+    <div class="ratio-box ratio-54">
+      <div class="ratio-label">5:4<em>Medium format</em></div>
+    </div>
+    <div class="ratio-box ratio-23">
+      <div class="ratio-label">2:3<em>35mm portrait</em></div>
+    </div>
+    <div class="ratio-box ratio-45">
+      <div class="ratio-label">4:5<em>IG portrait</em></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

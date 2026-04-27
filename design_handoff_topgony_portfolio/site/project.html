@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"/><title>Topgony — Project</title>
+<link rel="stylesheet" href="site.css"/>
+<style>
+.crumbs { padding:90px 32px 16px; display:flex; gap:12px; align-items:center; font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-muted); }
+.crumbs span { color:var(--text-dim); }
+.crumbs .cur { color:var(--text); }
+.phero { padding:0 32px 48px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:end; border-bottom:1px solid var(--border-subtle); padding-bottom:48px; }
+.phero h1 { font-family:var(--font-display); font-size:clamp(64px,8vw,128px); font-weight:500; line-height:0.9; letter-spacing:-0.04em; margin:0; }
+.phero h1 em { font-style:normal; color:var(--text-dim); }
+.phero__lede { font-size:18px; line-height:1.5; color:var(--text-muted); max-width:52ch; padding-bottom:16px; }
+.player { margin:0 32px; position:relative; aspect-ratio:16/9; background: repeating-linear-gradient(40deg, #0a0a0a 0 10px, #111 10px 20px); }
+.player::before { content:'[ MAIN PLAYER · 16:9 · 4K / 23.976 ]'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); color:var(--ink-500); text-transform:uppercase; }
+.player__pl { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:120px; height:120px; border-radius:50%; border:1px solid #fff; background:rgba(0,0,0,0.3); color:#fff; backdrop-filter:blur(8px); display:grid; place-items:center; cursor:pointer; transition: background var(--d-base) var(--e-out); }
+.player__pl:hover { background:#fff; color:#000; }
+.player__tc { position:absolute; left:16px; bottom:16px; font-family:var(--font-mono); font-size:11px; color:#fff; background:rgba(0,0,0,0.5); padding:4px 8px; }
+.pmeta { padding:48px 32px; display:grid; grid-template-columns:repeat(6,1fr); gap:32px; border-bottom:1px solid var(--border-subtle); }
+.pmeta dt { font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); margin:0 0 8px; }
+.pmeta dd { margin:0; font-family:var(--font-display); font-size:20px; font-weight:500; letter-spacing:-0.015em; }
+.pbody { padding:80px 32px; display:grid; grid-template-columns:1fr 2fr; gap:64px; border-bottom:1px solid var(--border-subtle); }
+.pbody__s { font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); line-height:1.8; }
+.pbody__t { font-size:18px; line-height:1.6; color:var(--text); max-width:62ch; }
+.pbody__t p { margin:0 0 20px; }
+.pbody__t p:first-of-type::first-letter { font-family:var(--font-display); font-size:72px; font-weight:500; float:left; line-height:0.9; margin:6px 12px 0 0; letter-spacing:-0.03em; }
+.stills { padding:32px; display:grid; grid-template-columns:repeat(12,1fr); gap:12px; }
+.creds { padding:80px 32px; border-top:1px solid var(--border-subtle); display:grid; grid-template-columns:1fr 2fr; gap:48px; }
+.creds h3 { font-family:var(--font-display); font-size:40px; font-weight:500; letter-spacing:-0.025em; margin:0; }
+.creds__l { display:grid; grid-template-columns:1fr 1fr; gap:18px 48px; }
+.creds__r { display:flex; justify-content:space-between; padding-bottom:12px; border-bottom:1px solid var(--border-subtle); font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-wide); color:var(--text-muted); text-transform:uppercase; }
+.creds__r strong { color:var(--text); font-weight:400; letter-spacing:var(--ls-meta); }
+.related { padding:48px 32px; border-top:1px solid var(--border-subtle); }
+.related h3 { font-family:var(--font-display); font-size:40px; font-weight:500; letter-spacing:-0.025em; margin:0 0 24px; }
+.rg { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.nx { padding:80px 32px; border-top:1px solid var(--border); display:grid; grid-template-columns:1fr 1fr; gap:48px; }
+.nx a { color:var(--text); }
+.nx__k { font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); margin-bottom:12px; }
+.nx__t { font-family:var(--font-display); font-size:48px; font-weight:500; letter-spacing:-0.03em; line-height:1; transition: color var(--d-base) var(--e-out); }
+.nx a:hover .nx__t { color:var(--text-muted); }
+.nx__rt { text-align:right; }
+</style></head><body>
+<div id="hd"></div>
+
+<div class="crumbs">
+  <a href="index.html">TOPGONY</a><span>/</span>
+  <a href="work.html">WORK</a><span>/</span>
+  <span>MUSIC VIDEO</span><span>/</span>
+  <span class="cur">001 — NIGHT DRIVE</span>
+</div>
+
+<section class="phero">
+  <div>
+    <div class="hero__k">— PROJECT / 001 · 2025 · MUSIC VIDEO</div>
+    <h1>Night drive,<br/>no <em>destination.</em></h1>
+  </div>
+  <p class="phero__lede">서울 외곽, 해가 지고 나서야 시작되는 드라이브. 달리는 창 너머로 흘러가는 빛과 광고판, 사람의 그림자. 4분 21초 동안 멈추지 않는 운동을 담은 뮤직비디오.</p>
+</section>
+
+<section class="player">
+  <button class="player__pl" aria-label="Play">
+    <svg width="30" height="30" viewBox="0 0 22 22" fill="currentColor"><path d="M6 3l13 8-13 8V3z"/></svg>
+  </button>
+  <span class="player__tc">00:00:00:00 / 00:04:21:14</span>
+</section>
+
+<dl class="pmeta">
+  <div><dt>— Client</dt><dd>ARC</dd></div>
+  <div><dt>— Year</dt><dd>2025</dd></div>
+  <div><dt>— Role</dt><dd>Director · DP · Edit</dd></div>
+  <div><dt>— Camera</dt><dd>ARRI Alexa Mini LF</dd></div>
+  <div><dt>— Duration</dt><dd>04:21</dd></div>
+  <div><dt>— Format</dt><dd>16:9 + 9:16</dd></div>
+</dl>
+
+<section class="pbody">
+  <div class="pbody__s">— NOTES<br/>CH.01 — SUNSET<br/>CH.02 — GANGBYEON<br/>CH.03 — TUNNEL<br/>CH.04 — HEADLIGHTS<br/><br/>SHOT ON LOCATION<br/>SEL · 5 NIGHTS<br/>2025.10 — 2025.11</div>
+  <div class="pbody__t">
+    <p>드라이브의 본질은 도착이 아니라 운동 그 자체다. 우리는 해가 지는 순간부터 카메라를 돌렸고, 다섯 밤 동안 서울 외곽의 국도와 고가도로 위를 달렸다. 창문 너머의 빛은 결코 같은 모양으로 두 번 지나가지 않는다.</p>
+    <p>음악은 멈추지 않는다. 컷도 멈추지 않는다. 리듬이 숨을 쉬는 순간은 오직 긴 터널에 진입할 때뿐이다 — 그 어둠 속에서만 잠시 모든 것이 정지한다. 그리고 터널을 빠져나오면 다시 모든 것이 흐른다.</p>
+    <p>카메라는 차량 보닛, 사이드미러, 뒷좌석, 그리고 동행한 스쿠터 위에 장착되었다. 대부분의 컷은 실시간으로 촬영되었고, 편집은 음악의 템포를 거스르지 않는 범위에서만 리듬을 잘랐다.</p>
+  </div>
+</section>
+
+<div class="sh"><h2>Stills.</h2><span>8 FRAMES · COLOR GRADED</span></div>
+<section class="stills" id="stills"></section>
+
+<section class="creds">
+  <h3>Credits.</h3>
+  <div class="creds__l" id="creds"></div>
+</section>
+
+<section class="related">
+  <h3>Related.</h3>
+  <div class="rg" id="related"></div>
+</section>
+
+<nav class="nx">
+  <a href="project.html"><div class="nx__k">← PREV · 011</div><div class="nx__t">Afterglow (single)</div></a>
+  <a href="project.html" class="nx__rt"><div class="nx__k">NEXT · 002 →</div><div class="nx__t">Paper lanterns</div></a>
+</nav>
+
+<div id="ft"></div>
+
+<script src="data.js"></script><script src="components.js"></script>
+<script>
+document.getElementById('hd').innerHTML = tplHeader('work');
+document.getElementById('ft').innerHTML = tplFooter();
+
+const stills = [
+  {span:7, r:'16/9', tc:'00:00:24:11'}, {span:5, r:'16/9', tc:'00:00:41:02'},
+  {span:4, r:'3/4', tc:'00:01:06:18'}, {span:4, r:'3/4', tc:'00:01:22:09'},
+  {span:4, r:'3/4', tc:'00:01:44:21'}, {span:12, r:'21/7', tc:'00:02:14:08'},
+  {span:6, r:'16/9', tc:'00:02:58:00'}, {span:6, r:'16/9', tc:'00:03:22:13'},
+];
+document.getElementById('stills').innerHTML = stills.map(s =>
+  `<div class="ph" style="grid-column:span ${s.span}; aspect-ratio:${s.r}" data-r="[ STILL · ${s.r.replace('/',':')} ]"><span class="ph__dur">${s.tc}</span></div>`
+).join('');
+
+const creds = [
+  ['DIRECTOR','Topgony'],['DP','Topgony'],['EDITOR','Topgony'],['PRODUCER','HK Kim'],
+  ['AC','JS Park'],['GAFFER','MK Lee'],['COLOR','Studio Hexagon'],['MUSIC','ARC'],
+  ['SOUND','Foley House'],['AGENCY','—'],
+];
+document.getElementById('creds').innerHTML = creds.map(([k,v]) => `<div class="creds__r"><strong>${k}</strong><span>${v}</span></div>`).join('');
+
+document.getElementById('related').innerHTML = TG.works.slice(1,4).map(w => ({...w, span:4})).map(tplCard).join('');
+</script>
+</body></html>

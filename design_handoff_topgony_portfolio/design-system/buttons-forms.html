@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>Buttons & Forms — Cinema DS</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ---- BUTTONS ---- */
+.btn {
+  --_pad-y: 14px;
+  --_pad-x: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: var(--_pad-y) var(--_pad-x);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--text);
+  border-radius: var(--r-0);
+  transition: background var(--d-fast) var(--e-out), color var(--d-fast) var(--e-out), transform var(--d-fast) var(--e-out);
+  white-space: nowrap;
+}
+.btn:hover { background: var(--text); color: #000; }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 1px solid var(--text); outline-offset: 3px; }
+
+.btn--primary { background: var(--text); color: #000; border-color: var(--text); }
+.btn--primary:hover { background: transparent; color: var(--text); }
+
+.btn--ghost { border-color: var(--border); color: var(--text-muted); }
+.btn--ghost:hover { border-color: var(--text); color: var(--text); background: transparent; }
+
+.btn--pill { border-radius: var(--r-full); --_pad-x: 18px; --_pad-y: 10px; }
+
+.btn--sm { --_pad-x: 14px; --_pad-y: 8px; font-size: 10px; }
+.btn--lg { --_pad-x: 32px; --_pad-y: 20px; font-size: 12px; }
+
+.btn--icon {
+  --_pad-x: 14px;
+  --_pad-y: 14px;
+  aspect-ratio: 1/1;
+  padding: 0; width: 46px; height: 46px;
+  justify-content: center;
+}
+
+.btn[disabled], .btn:disabled {
+  color: var(--ink-500); border-color: var(--ink-400);
+  cursor: not-allowed;
+}
+.btn[disabled]:hover { background: transparent; color: var(--ink-500); }
+
+/* Play button (media-specific) */
+.btn--play {
+  width: 96px; height: 96px; border-radius: 50%;
+  border: 1px solid var(--text);
+  justify-content: center; padding: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+}
+.btn--play:hover { background: var(--text); color: #000; }
+
+/* ---- FORMS ---- */
+.field {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.field__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.input, .textarea, .select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text);
+  width: 100%;
+  transition: border-color var(--d-fast) var(--e-out);
+}
+.input::placeholder, .textarea::placeholder { color: var(--ink-500); }
+.input:focus, .textarea:focus, .select:focus {
+  outline: none; border-bottom-color: var(--text);
+}
+.textarea { resize: vertical; min-height: 100px; }
+
+.field--boxed .input,
+.field--boxed .textarea,
+.field--boxed .select {
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+}
+.field--boxed .input:focus,
+.field--boxed .textarea:focus,
+.field--boxed .select:focus { border-color: var(--text); }
+
+/* checkbox / radio */
+.check {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 14px; color: var(--text);
+  cursor: pointer;
+}
+.check input { position: absolute; opacity: 0; pointer-events: none; }
+.check__box {
+  width: 16px; height: 16px;
+  border: 1px solid var(--border);
+  display: grid; place-items: center;
+  transition: border-color var(--d-fast) var(--e-out);
+}
+.check input:checked + .check__box {
+  border-color: var(--text);
+  background: var(--text);
+}
+.check input:checked + .check__box::after {
+  content: "";
+  width: 8px; height: 8px; background: #000;
+}
+.check--radio .check__box { border-radius: 50%; }
+.check--radio input:checked + .check__box::after { border-radius: 50%; }
+
+/* Tag / chip */
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+}
+.tag--active {
+  background: var(--text); color: #000; border-color: var(--text);
+}
+
+/* demo layout */
+.demo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: center; margin-bottom: 32px; }
+.demo--flex { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+.form-card {
+  margin-top: 48px;
+  border: 1px solid var(--border);
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 48px;
+}
+.form-card h3 {
+  grid-column: 1 / -1;
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 500; letter-spacing: -0.02em;
+}
+.form-card__row { grid-column: 1 / -1; }
+.form-card__actions {
+  grid-column: 1 / -1;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 16px; border-top: 1px solid var(--border-subtle);
+  margin-top: 8px;
+}
+</style>
+</head>
+<body>
+<div class="ds-page">
+  <div class="ds-head">
+    <div>
+      <div class="ds-head__eyebrow">Cinema DS / 04</div>
+      <h1 class="ds-head__title">Buttons &amp; Forms</h1>
+    </div>
+    <div class="ds-head__meta">
+      <div>MONO LABELS · UPPERCASE</div>
+      <div>UNDERLINE-FIRST INPUTS</div>
+    </div>
+  </div>
+
+  <h3 class="ds-section-label">Buttons — Primary / Outline / Ghost</h3>
+  <div class="demo--flex" style="margin-bottom:32px">
+    <button class="btn btn--primary">Primary Action</button>
+    <button class="btn">Outline</button>
+    <button class="btn btn--ghost">Ghost</button>
+    <button class="btn" disabled>Disabled</button>
+  </div>
+
+  <h3 class="ds-section-label">Sizes</h3>
+  <div class="demo--flex" style="margin-bottom:32px">
+    <button class="btn btn--sm">Small</button>
+    <button class="btn">Default</button>
+    <button class="btn btn--lg">Large</button>
+    <button class="btn btn--primary btn--lg">Hire me →</button>
+  </div>
+
+  <h3 class="ds-section-label">Pill / Icon / Play</h3>
+  <div class="demo--flex" style="margin-bottom:32px; gap:20px">
+    <button class="btn btn--pill">All works</button>
+    <button class="btn btn--pill tag--active" style="background:var(--text); color:#000; border-color:var(--text)">Music video</button>
+    <button class="btn btn--pill btn--ghost">Brand film</button>
+    <button class="btn btn--icon">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3v8" stroke="currentColor"/></svg>
+    </button>
+    <button class="btn btn--icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor"/></svg>
+    </button>
+    <button class="btn btn--play">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="currentColor"><path d="M6 3l13 8-13 8V3z"/></svg>
+    </button>
+  </div>
+
+  <h3 class="ds-section-label">Tags / Filter chips</h3>
+  <div class="demo--flex" style="margin-bottom:8px">
+    <span class="tag tag--active">ALL · 42</span>
+    <span class="tag">MUSIC VIDEO · 14</span>
+    <span class="tag">BRAND FILM · 9</span>
+    <span class="tag">FASHION · 8</span>
+    <span class="tag">COMMERCIAL · 7</span>
+    <span class="tag">EVENT · 4</span>
+  </div>
+
+  <div class="form-card">
+    <h3>Inquiry — underline style</h3>
+    <div class="field">
+      <label class="field__label">Name</label>
+      <input class="input" placeholder="홍길동"/>
+    </div>
+    <div class="field">
+      <label class="field__label">Email</label>
+      <input class="input" placeholder="you@studio.com"/>
+    </div>
+    <div class="field form-card__row">
+      <label class="field__label">Project type</label>
+      <select class="select">
+        <option>뮤직비디오</option>
+        <option>브랜드 필름</option>
+        <option>패션 필름</option>
+        <option>광고 / CF</option>
+        <option>이벤트 스케치</option>
+      </select>
+    </div>
+    <div class="field form-card__row">
+      <label class="field__label">Brief</label>
+      <textarea class="textarea" placeholder="프로젝트에 대해 간단히 알려주세요 — 일정, 예산, 분위기 레퍼런스."></textarea>
+    </div>
+    <div class="form-card__row" style="display:flex; gap:24px; flex-wrap:wrap">
+      <label class="check">
+        <input type="checkbox" checked/>
+        <span class="check__box"></span>
+        <span>NDA 필요</span>
+      </label>
+      <label class="check check--radio">
+        <input type="radio" name="r" checked/>
+        <span class="check__box"></span>
+        <span>촬영만</span>
+      </label>
+      <label class="check check--radio">
+        <input type="radio" name="r"/>
+        <span class="check__box"></span>
+        <span>촬영 + 편집</span>
+      </label>
+      <label class="check check--radio">
+        <input type="radio" name="r"/>
+        <span class="check__box"></span>
+        <span>전 프로세스</span>
+      </label>
+    </div>
+    <div class="form-card__actions">
+      <span class="ds-note">응답까지 평균 48시간</span>
+      <div style="display:flex; gap:12px">
+        <button class="btn btn--ghost">Cancel</button>
+        <button class="btn btn--primary">Send inquiry →</button>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="ds-section-label" style="margin-top:48px">Boxed input variant</h3>
+  <div class="demo" style="grid-template-columns: repeat(2, 1fr); gap: 24px">
+    <div class="field field--boxed">
+      <label class="field__label">Search projects</label>
+      <input class="input" placeholder="뮤직비디오, 2024, 서울..."/>
+    </div>
+    <div class="field field--boxed">
+      <label class="field__label">Timecode</label>
+      <input class="input" style="font-family:var(--font-mono)" value="00:02:14:08"/>
+    </div>
+  </div>
+</div>
+</body>
+</html>

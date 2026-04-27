@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>Typography — Cinema DS</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.type-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 180px;
+  gap: 24px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.type-row__name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.type-row__sample { color: var(--text); }
+.type-row__meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--ls-wide);
+  color: var(--text-dim);
+  text-align: right;
+}
+
+.fonts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 48px;
+}
+.font-card {
+  padding: 32px;
+  background: var(--bg);
+}
+.font-card__specimen {
+  font-size: 88px;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin: 0 0 24px;
+  font-weight: 500;
+}
+.font-card__specimen--mono { font-size: 64px; letter-spacing: 0; }
+.font-card__name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+.font-card__role {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text);
+}
+.font-card__weights {
+  margin-top: 16px;
+  display: flex; gap: 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.font-card__weights span { letter-spacing: -0.01em; }
+
+.demo-block {
+  margin-top: 56px;
+  border: 1px solid var(--border);
+  padding: 56px;
+}
+.demo-block h2 {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 7vw, 120px);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  margin: 0 0 24px;
+}
+.demo-block h2 em { font-style: normal; color: var(--text-muted); }
+.demo-block .kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 18px;
+}
+.demo-block p {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  max-width: 640px;
+}
+</style>
+</head>
+<body>
+<div class="ds-page">
+  <div class="ds-head">
+    <div>
+      <div class="ds-head__eyebrow">Cinema DS / 02</div>
+      <h1 class="ds-head__title">Typography</h1>
+    </div>
+    <div class="ds-head__meta">
+      <div>3 FAMILIES · 12-STEP SCALE</div>
+      <div>DISPLAY · BODY · MONO</div>
+    </div>
+  </div>
+
+  <div class="fonts-grid">
+    <div class="font-card">
+      <div style="font-family: var(--font-display); font-weight:500" class="font-card__specimen">Aa</div>
+      <div class="font-card__name">— Display</div>
+      <div class="font-card__role">Space Grotesk</div>
+      <div class="font-card__weights" style="font-family: var(--font-display)">
+        <span style="font-weight:300">300</span>
+        <span style="font-weight:400">400</span>
+        <span style="font-weight:500">500</span>
+        <span style="font-weight:700">700</span>
+      </div>
+    </div>
+    <div class="font-card">
+      <div style="font-family: var(--font-body); font-weight:500" class="font-card__specimen">Aa</div>
+      <div class="font-card__name">— Body</div>
+      <div class="font-card__role">Inter Tight</div>
+      <div class="font-card__weights" style="font-family: var(--font-body)">
+        <span style="font-weight:300">300</span>
+        <span style="font-weight:400">400</span>
+        <span style="font-weight:500">500</span>
+        <span style="font-weight:600">600</span>
+      </div>
+    </div>
+    <div class="font-card">
+      <div style="font-family: var(--font-mono); font-weight:400" class="font-card__specimen font-card__specimen--mono">Aa01</div>
+      <div class="font-card__name">— Mono / meta</div>
+      <div class="font-card__role">JetBrains Mono</div>
+      <div class="font-card__weights" style="font-family: var(--font-mono)">
+        <span style="font-weight:400">400</span>
+        <span style="font-weight:500">500</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="ds-section-label">Type scale</h3>
+  <div>
+    <div class="type-row">
+      <div class="type-row__name">MEGA</div>
+      <div class="type-row__sample" style="font-family:var(--font-display); font-size:180px; line-height:.9; letter-spacing:-0.045em; font-weight:500">Aa</div>
+      <div class="type-row__meta">180 / 0.9 / -.045em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">DISPLAY</div>
+      <div class="type-row__sample" style="font-family:var(--font-display); font-size:120px; line-height:.92; letter-spacing:-0.04em; font-weight:500">Cinema.</div>
+      <div class="type-row__meta">120 / 0.92 / -.04em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">H1</div>
+      <div class="type-row__sample" style="font-family:var(--font-display); font-size:76px; line-height:.95; letter-spacing:-0.03em; font-weight:500">Selected Works.</div>
+      <div class="type-row__meta">76 / 0.95 / -.03em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">H2</div>
+      <div class="type-row__sample" style="font-family:var(--font-display); font-size:54px; line-height:1; letter-spacing:-0.025em; font-weight:500">Director of photography</div>
+      <div class="type-row__meta">54 / 1.0 / -.025em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">H3</div>
+      <div class="type-row__sample" style="font-family:var(--font-display); font-size:38px; line-height:1.05; letter-spacing:-0.02em; font-weight:500">Fashion film / SS26</div>
+      <div class="type-row__meta">38 / 1.05 / -.02em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">H4</div>
+      <div class="type-row__sample" style="font-family:var(--font-display); font-size:28px; font-weight:500">Behind the camera</div>
+      <div class="type-row__meta">28 / 1.1 / -.015em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">H5</div>
+      <div class="type-row__sample" style="font-family:var(--font-display); font-size:22px; font-weight:500">Project title</div>
+      <div class="type-row__meta">22 / 1.2</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">LEAD</div>
+      <div class="type-row__sample" style="font-size:18px; color:var(--text-muted); line-height:1.5">한 컷 한 컷에 시간의 결을 새기는 일. 빛과 그림자가 만드는 영화적 공간.</div>
+      <div class="type-row__meta">18 / 1.5</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">BODY</div>
+      <div class="type-row__sample" style="font-size:15px; color:var(--text); line-height:1.55">서울을 기반으로 활동하는 비디오그래퍼. 뮤직비디오, 브랜드 필름, 패션 필름을 중심으로 작업합니다.</div>
+      <div class="type-row__meta">15 / 1.55</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">SMALL</div>
+      <div class="type-row__sample" style="font-size:13px; color:var(--text-muted)">2024 · Directed & shot for Studio Hexagon</div>
+      <div class="type-row__meta">13 / 1.5</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">META</div>
+      <div class="type-row__sample" style="font-family:var(--font-mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-muted)">00:02:14:08 — 4K / 23.976 / ARRI</div>
+      <div class="type-row__meta">12 / MONO</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">CAPTION</div>
+      <div class="type-row__sample" style="font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-dim)">CH.01 / FOLEY &amp; COLOR</div>
+      <div class="type-row__meta">11 / MONO</div>
+    </div>
+    <div class="type-row">
+      <div class="type-row__name">MICRO</div>
+      <div class="type-row__sample" style="font-family:var(--font-mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim)">© 2026 — ALL RIGHTS RESERVED</div>
+      <div class="type-row__meta">10 / MONO</div>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <div class="kicker">SPECIMEN — HEADLINE TREATMENT</div>
+    <h2>Frames that <em>breathe</em><br/>between cuts.</h2>
+    <p>한 프레임 안에 담기는 시간의 밀도. 페이스, 호흡, 침묵 — 움직이는 이미지가 만드는 서사의 결을 설계합니다.</p>
+  </div>
+</div>
+</body>
+</html>

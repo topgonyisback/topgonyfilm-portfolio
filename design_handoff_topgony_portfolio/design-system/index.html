@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>Cinema DS — Videographer Portfolio Design System</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+body { overflow-x: hidden; }
+
+.hero {
+  min-height: 100vh;
+  padding: 48px 56px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.hero__top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: var(--ls-meta);
+  text-transform: uppercase; color: var(--text-dim);
+}
+.hero__top strong { color: var(--text); font-weight: 400; letter-spacing: var(--ls-meta); }
+.hero__center {
+  display: flex; flex-direction: column; justify-content: center; gap: 24px;
+  padding: 80px 0;
+}
+.hero__kicker {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex; align-items: center; gap: 12px;
+}
+.hero__kicker::before {
+  content:""; width: 40px; height: 1px; background: var(--text-muted);
+}
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(80px, 13vw, 220px);
+  font-weight: 500;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  margin: 0;
+}
+.hero__title em { font-style: normal; color: var(--text-dim); }
+.hero__sub {
+  max-width: 640px;
+  font-size: 18px; line-height: 1.5;
+  color: var(--text-muted);
+}
+.hero__bottom {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+  gap: 24px;
+}
+.stat__label {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: var(--ls-meta);
+  text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.stat__value {
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 500; letter-spacing: -0.02em;
+}
+
+/* SYSTEM GRID */
+.sys {
+  padding: 80px 56px;
+  border-bottom: 1px solid var(--border);
+}
+.sys__head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 48px;
+}
+.sys__head h2 {
+  font-family: var(--font-display);
+  font-size: 56px; line-height: 1; letter-spacing: -0.03em;
+  font-weight: 500;
+  margin: 0;
+}
+.sys__head span {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+.card-link {
+  background: var(--ink-050);
+  border: 1px solid var(--border-subtle);
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 14px;
+  min-height: 280px;
+  transition: background var(--d-base) var(--e-out), border-color var(--d-base) var(--e-out), transform var(--d-base) var(--e-out);
+  position: relative; overflow: hidden;
+}
+.card-link:hover {
+  background: var(--ink-100);
+  border-color: var(--ink-400);
+}
+.card-link__no {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+  color: var(--text-dim);
+}
+.card-link__title {
+  font-family: var(--font-display);
+  font-size: 34px; line-height: 1; letter-spacing: -0.025em;
+  font-weight: 500;
+  margin: 0;
+}
+.card-link__sub {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-wide); text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.card-link__foot {
+  margin-top: auto;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-meta); text-transform: uppercase;
+  color: var(--text-dim);
+}
+.card-link__arrow {
+  width: 28px; height: 28px; border: 1px solid var(--border);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: border-color var(--d-base) var(--e-out), background var(--d-base) var(--e-out), color var(--d-base) var(--e-out);
+}
+.card-link:hover .card-link__arrow { background: var(--text); color: #000; border-color: var(--text); }
+
+/* mini-preview swatches inside cards */
+.mini {
+  display: flex; gap: 4px; flex: 0 0 auto;
+  height: 48px;
+}
+.mini > div { flex: 1; border: 1px solid var(--border-subtle); }
+
+.mini-type {
+  font-family: var(--font-display);
+  font-size: 48px; font-weight: 500; letter-spacing: -0.03em;
+  line-height: 1;
+}
+.mini-type small {
+  display: block;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-meta); color: var(--text-dim);
+  margin-top: 6px; text-transform: uppercase;
+  font-weight: 400;
+}
+.mini-ratio {
+  display: flex; gap: 4px; height: 56px; align-items: flex-end;
+}
+.mini-ratio div {
+  background: var(--ink-300); border: 1px solid var(--border);
+}
+.mini-thumb {
+  height: 72px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0) 40%),
+    repeating-linear-gradient(45deg, #0e0e0e 0 6px, #131313 6px 12px);
+  border: 1px solid var(--border-subtle);
+}
+.mini-icons {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  padding: 8px 0;
+}
+.mini-icons svg {
+  stroke: var(--text); fill: none; stroke-width: 1.25;
+}
+.mini-curve {
+  height: 56px; position: relative; overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+.mini-curve::before {
+  content:""; position: absolute; top: 50%; left: -10px;
+  width: 14px; height: 14px; background: var(--text);
+  transform: translateY(-50%);
+  animation: slide-mini 2.5s infinite alternate cubic-bezier(0.85, 0, 0.15, 1);
+}
+@keyframes slide-mini {
+  to { left: calc(100% - 4px); }
+}
+.mini-nav {
+  height: 56px;
+  display: flex; align-items: center;
+  padding: 0 12px;
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-meta); color: var(--text-dim);
+  text-transform: uppercase;
+  justify-content: space-between;
+}
+
+/* FOOTER */
+.footer {
+  padding: 56px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--ls-meta); color: var(--text-dim);
+  text-transform: uppercase;
+}
+.footer__word {
+  font-family: var(--font-display); font-size: 140px;
+  line-height: 0.85; letter-spacing: -0.045em; color: var(--text); font-weight: 500;
+}
+
+/* Text rotator in hero */
+.hero__marquee {
+  margin-top: 16px;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: var(--ls-meta); color: var(--text-muted);
+  text-transform: uppercase;
+  overflow: hidden; white-space: nowrap;
+}
+.hero__marquee span { display: inline-block; animation: mq 35s linear infinite; padding-right: 48px; }
+@keyframes mq { to { transform: translateX(-50%); } }
+
+.pulse {
+  display: inline-block; width: 7px; height: 7px;
+  background: var(--live); border-radius: 50%;
+  box-shadow: 0 0 8px var(--live);
+  animation: pulse 1.4s infinite;
+  margin-right: 8px; transform: translateY(-1px);
+}
+@keyframes pulse { 50% { opacity: .4; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero__top">
+    <div>
+      <strong>CINEMA / DS</strong>
+      <div>DESIGN SYSTEM · V1.0</div>
+    </div>
+    <div style="text-align:center">
+      <span><span class="pulse"></span>ACTIVE — 10 MODULES</span>
+    </div>
+    <div style="text-align:right">
+      <strong>2026.04.20</strong>
+      <div>FOR VIDEOGRAPHER PORTFOLIO</div>
+    </div>
+  </div>
+
+  <div class="hero__center">
+    <div class="hero__kicker">— Cinematic · Modern Minimal · Magazine</div>
+    <h1 class="hero__title">Cinema<em>.</em></h1>
+    <p class="hero__sub">비디오그래퍼 포트폴리오를 위한 디자인 시스템. 딥블랙 스테이지 위에 올려지는 타이포그래피, 16:9 + 9:16 미디어 그리드, 영화 크레딧처럼 읽히는 메타데이터.</p>
+  </div>
+
+  <div class="hero__bottom">
+    <div class="stat">
+      <div class="stat__label">— Theme</div>
+      <div class="stat__value">Dark only</div>
+    </div>
+    <div class="stat">
+      <div class="stat__label">— Typography</div>
+      <div class="stat__value">Space Grotesk / Inter Tight / JetBrains Mono</div>
+    </div>
+    <div class="stat">
+      <div class="stat__label">— Palette</div>
+      <div class="stat__value">10-step mono · OKLCH</div>
+    </div>
+    <div class="stat">
+      <div class="stat__label">— Grid</div>
+      <div class="stat__value">12-col · 16:9 / 9:16</div>
+    </div>
+  </div>
+
+  <div class="hero__marquee">
+    <span>— FRAMES THAT BREATHE BETWEEN CUTS · 한 컷 한 컷에 시간의 결을 새기는 일 · DIRECTOR · DP · EDITOR · — FRAMES THAT BREATHE BETWEEN CUTS · 한 컷 한 컷에 시간의 결을 새기는 일 · DIRECTOR · DP · EDITOR · </span>
+  </div>
+</section>
+
+<section class="sys">
+  <div class="sys__head">
+    <h2>Modules</h2>
+    <span>10 · CARDS · CLICK TO OPEN</span>
+  </div>
+
+  <div class="cards">
+    <a href="colors.html" class="card-link" style="grid-column: span 6">
+      <span class="card-link__no">— 01 / Colors</span>
+      <h3 class="card-link__title">Cool-grayscale<br/>OKLCH 10-step</h3>
+      <div class="mini">
+        <div style="background: var(--ink-000)"></div>
+        <div style="background: var(--ink-050)"></div>
+        <div style="background: var(--ink-200)"></div>
+        <div style="background: var(--ink-400)"></div>
+        <div style="background: var(--ink-600)"></div>
+        <div style="background: var(--ink-800)"></div>
+        <div style="background: var(--ink-900)"></div>
+      </div>
+      <div class="card-link__sub">Pure black base · semantic tokens · functional (REC / LIVE) chips</div>
+      <div class="card-link__foot">
+        <span>INK-000 → INK-900</span>
+        <span class="card-link__arrow">→</span>
+      </div>
+    </a>
+
+    <a href="typography.html" class="card-link" style="grid-column: span 6">
+      <span class="card-link__no">— 02 / Typography</span>
+      <h3 class="card-link__title">Sans-only<br/>12-step scale</h3>
+      <div class="mini-type">Aa Aa Aa<small>SPACE GROTESK · INTER TIGHT · JETBRAINS MONO</small></div>
+      <div class="card-link__foot">
+        <span>MICRO 10 → MEGA 180</span>
+        <span class="card-link__arrow">→</span>
+      </div>
+    </a>
+
+    <a href="spacing-grid.html" class="card-link" style="grid-column: span 4">
+      <span class="card-link__no">— 03 / Spacing &amp; grid</span>
+      <h3 class="card-link__title">8pt · 12-col</h3>
+      <div class="mini-ratio">
+        <div style="width: 64px; aspect-ratio: 16/9"></div>
+        <div style="width: 30px; aspect-ratio: 9/16"></div>
+        <div style="width: 48px; aspect-ratio: 1/1"></div>
+      </div>
+      <div class="card-link__sub">16:9 / 9:16 / 1:1 ratios</div>
+      <div class="card-link__foot">
+        <span>S-0 → S-12</span>
+        <span class="card-link__arrow">→</span>
+      </div>
+    </a>
+
+    <a href="buttons-forms.html" class="card-link" style="grid-column: span 4">
+      <span class="card-link__no">— 04 / Buttons &amp; forms</span>
+      <h3 class="card-link__title">Mono labels<br/>underline inputs</h3>
+      <div style="display:flex; gap:8px; flex-wrap:wrap">
+        <span style="padding:8px 14px; border:1px solid var(--text); font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase">OUTLINE</span>
+        <span style="padding:8px 14px; background:var(--text); color:#000; font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase">PRIMARY</span>
+        <span style="padding:8px 14px; border:1px solid var(--border); border-radius:999px; font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-muted)">PILL</span>
+      </div>
+      <div class="card-link__foot">
+        <span>3 VARIANTS · 3 SIZES</span>
+        <span class="card-link__arrow">→</span>
+      </div>
+    </a>
+
+    <a href="video-cards.html" class="card-link" style="grid-column: span 4">
+      <span class="card-link__no">— 05 / Video cards</span>
+      <h3 class="card-link__title">Feature · mag ·<br/>9:16 · list</h3>
+      <div class="mini-thumb"></div>
+      <div class="card-link__sub">5 variants for different layouts — magazine mix, bleed hover, vertical reels</div>
+      <div class="card-link__foot">
+        <span>16:9 · 9:16 · 21:9</span>
+        <span class="card-link__arrow">→</span>
+      </div>
+    </a>
+
+    <a href="project-items.html" class="card-link" style="grid-column: span 6">
+      <span class="card-link__no">— 06 / Project list items</span>
+      <h3 class="card-link__title">Index · poster ·<br/>ticker · table</h3>
+      <div style="display:flex; flex-direction:column; gap: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--ls-wide); color: var(--text-muted); text-transform: uppercase">
+        <div style="display:flex; justify-content:space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px"><span>— 001 / NIGHT DRIVE</span><span>04:21</span></div>
+        <div style="display:flex; justify-content:space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 6px"><span>— 002 / PAPER LANTERNS</span><span>03:42</span></div>
+        <div style="display:flex; justify-content:space-between"><span>— 003 / SS26 SILHOUETTES</span><span>01:58</span></div>
+      </div>
+      <div class="card-link__foot">
+        <span>4 VARIANTS</span>
+        <span class="card-link__arrow">→</span>
+      </div>
+    </a>
+
+    <a href="navigation.html" class="card-link" style="grid-column: span 6">
+      <span class="card-link__no">— 07 / Navigation</span>
+      <h3 class="card-link__title">Header · rail ·<br/>overlay · footer</h3>
+      <div class="mini-nav">
+        <span>TOPGONY.</span>
+        <span>WORK · REELS · ABOUT · CONTACT</span>
+        <span>MENU</span>
+      </div>
+      <div class="card-link__sub">4 navigation patterns + full-screen overlay recipe</div>
+      <div class="card-link__foot">
+        <span>5 PATTERNS</span>
+        <span class="card-link__arrow">→</span>
+      </div>
+    </a>
+
+    <a href="logo.html" class="card-link" style="grid-column: span 4">
+      <span class="card-link__no">— 08 / Logo / Wordmark</span>
+      <h3 class="card-link__title">topgony<span style="color: var(--text-dim)">.</span></h3>
+      <div class="card-link__sub">Wordmark · stack · monogram · clear-space rules</div>
+      <div class="card-link__foot">
+        <span>6 LOCKUPS</span>
+        <span class="card-link__arrow">→</span>
+      </div>
+    </a>
+
+    <a href="icons.html" class="card-link" style="grid-column: span 4">
+      <span class="card-link__no">— 09 / Icons</span>
+      <h3 class="card-link__title">Hairline ·<br/>24px grid</h3>
+      <div class="mini-icons">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M7 4v16l14-8z" fill="currentColor" stroke="none"/></svg>
+        <svg viewBox="0 0 24 24" width="24" height="24"><circle cx="11" cy="11" r="6"/><path d="M16 16l5 5"/></svg>
+        <svg viewBox="0 0 24 24" width="24" height="24"><rect x="3" y="7" width="13" height="10"/><path d="M16 10l5-3v10l-5-3z"/></svg>
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="card-link__foot">
+        <span>32 ICONS</span>
+        <span class="card-link__arrow">→</span>
+      </div>
+    </a>
+
+    <a href="motion.html" class="card-link" style="grid-column: span 4">
+      <span class="card-link__no">— 10 / Motion</span>
+      <h3 class="card-link__title">Cinematic<br/>easing</h3>
+      <div class="mini-curve"></div>
+      <div class="card-link__sub">5 durations × 6 curves + recipes</div>
+      <div class="card-link__foot">
+        <span>80MS → 900MS</span>
+        <span class="card-link__arrow">→</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="footer">
+  <div>
+    <div>CINEMA / DS · V1.0</div>
+    <div>VIDEOGRAPHER PORTFOLIO</div>
+    <div>DRAFTED 2026.04.20</div>
+  </div>
+  <div class="footer__word">cinema.</div>
+  <div style="text-align:right">
+    <div>NEXT — PORTFOLIO SITE</div>
+    <div>COMPOSE FROM 10 MODULES</div>
+    <div>→ REVIEW MODULES</div>
+  </div>
+</section>
+
+</body>
+</html>
