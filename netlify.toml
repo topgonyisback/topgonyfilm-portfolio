@@ -1,0 +1,7 @@
+[build]
+  publish = "design_handoff_topgony_portfolio"
+
+[[redirects]]
+  from = "/"
+  to = "/site/"
+  status = 302
