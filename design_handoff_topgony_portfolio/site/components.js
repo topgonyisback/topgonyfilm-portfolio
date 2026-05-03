@@ -9,8 +9,7 @@ const h = (tag, attrs = {}, children = '') => {
 // 헤더
 window.tplHeader = (active = '') => `
 <header class="hd">
-  <div class="hd__l"><span><span class="hd__dot"></span>LIVE · SEOUL</span><span>${active.toUpperCase() || 'INDEX'}</span></div>
-  <div class="hd__b">${T.brand.name}</div>
+  <a href="index.html" class="hd__b">${T.brand.name}</a>
   <nav class="hd__r">
     <a href="index.html" class="${active==='index'?'is-active':''}">Index</a>
     <a href="work.html" class="${active==='work'?'is-active':''}">Work</a>
@@ -38,20 +37,42 @@ window.tplFooter = () => `
 
 // 카드 (매거진 그리드)
 window.tplCard = (w) => `
-<a class="card" data-cat="${w.cat}" style="grid-column: span ${w.span}" href="project.html">
-  <div class="ph" style="aspect-ratio:${w.ratio}" data-r="[ ${w.ratio.replace('/',':')} ]">
+<a class="card" data-cat="${w.cat}" href="project.html#no=${w.no}">
+  <div class="ph" data-r="${w.video || w.thumb ? '' : '[ 3:4 ]'}" ${w.thumb ? `style="background-image:url('${w.thumb}');background-size:cover;background-position:center;"` : ''}>
+    ${w.video ? `<video class="card__vid" muted loop playsinline preload="auto" data-src="${w.video}"></video>` : ''}
     <span class="ph__tag">${w.catLabel}</span><span class="ph__dur">${w.dur}</span>
   </div>
   <div class="card__m">
-    <span class="card__no">— ${w.no}</span>
     <h4 class="card__t">${w.title}</h4>
-    <span class="card__c">${w.client} · ${w.year}</span>
+    <span class="card__cat">${w.catLabel}</span>
+    <span class="card__cl">${w.client} · ${w.year}</span>
   </div>
 </a>`;
 
+// 카드 비디오 호버 재생
+window.bindVideos = () => {
+  document.querySelectorAll('.card').forEach(card => {
+    const vid = card.querySelector('.card__vid');
+    if (!vid) return;
+    // src를 지정하지 않다가 호버 시 처음 로드
+    card.addEventListener('mouseenter', () => {
+      if (!vid.src && vid.dataset.src) {
+        vid.src = vid.dataset.src;
+      }
+      vid.play().catch(() => {});
+      vid.style.opacity = '1';
+    });
+    card.addEventListener('mouseleave', () => {
+      vid.pause();
+      vid.currentTime = 0;
+      vid.style.opacity = '0';
+    });
+  });
+};
+
 // 인덱스 행 (리스트 뷰)
 window.tplIdx = (w) => `
-<a class="idx" data-cat="${w.cat}" href="project.html">
+<a class="idx" data-cat="${w.cat}" href="project.html#no=${w.no}">
   <span class="idx__no">— ${w.no}</span>
   <span class="idx__t">${w.title}</span>
   <span class="idx__c">${w.client} — ${w.catLabel}</span>

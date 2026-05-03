@@ -1,19 +1,36 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"/><title>Topgony — Project</title>
+<html lang="ko"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title id="pageTitle">Topgony — Project</title>
 <link rel="stylesheet" href="site.css"/>
 <style>
 .crumbs { padding:90px 32px 16px; display:flex; gap:12px; align-items:center; font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-muted); }
 .crumbs span { color:var(--text-dim); }
 .crumbs .cur { color:var(--text); }
-.phero { padding:0 32px 48px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:end; border-bottom:1px solid var(--border-subtle); padding-bottom:48px; }
-.phero h1 { font-family:var(--font-display); font-size:clamp(64px,8vw,128px); font-weight:500; line-height:0.9; letter-spacing:-0.04em; margin:0; }
+.phero { padding:0 32px 48px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:end; border-bottom:1px solid var(--border-subtle); }
+.phero h1 { font-family:var(--font-display); font-size:clamp(48px,6vw,96px); font-weight:500; line-height:0.92; letter-spacing:-0.04em; margin:0; }
 .phero h1 em { font-style:normal; color:var(--text-dim); }
 .phero__lede { font-size:18px; line-height:1.5; color:var(--text-muted); max-width:52ch; padding-bottom:16px; }
-.player { margin:0 32px; position:relative; aspect-ratio:16/9; background: repeating-linear-gradient(40deg, #0a0a0a 0 10px, #111 10px 20px); }
-.player::before { content:'[ MAIN PLAYER · 16:9 · 4K / 23.976 ]'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); color:var(--ink-500); text-transform:uppercase; }
-.player__pl { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:120px; height:120px; border-radius:50%; border:1px solid #fff; background:rgba(0,0,0,0.3); color:#fff; backdrop-filter:blur(8px); display:grid; place-items:center; cursor:pointer; transition: background var(--d-base) var(--e-out); }
-.player__pl:hover { background:#fff; color:#000; }
-.player__tc { position:absolute; left:16px; bottom:16px; font-family:var(--font-mono); font-size:11px; color:#fff; background:rgba(0,0,0,0.5); padding:4px 8px; }
+
+.player-wrap { padding:48px 32px; display:flex; justify-content:center; border-bottom:1px solid var(--border-subtle); }
+.player { position:relative; background:#0a0a0a; overflow:hidden; flex-shrink:0; }
+.player.ratio-916 { width:360px; aspect-ratio:9/16; }
+.player.ratio-169 { width:min(720px, 100%); aspect-ratio:16/9; }
+.player__thumb { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.player__vid { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none; }
+.player__pl { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:80px; height:80px; border-radius:50%; border:1px solid rgba(255,255,255,0.8); background:rgba(0,0,0,0.4); color:#fff; backdrop-filter:blur(8px); display:grid; place-items:center; cursor:pointer; transition: opacity 0.25s, background 0.2s; z-index:3; }
+.player__pl:hover { background:rgba(255,255,255,0.15); }
+.player__pl.is-playing { opacity:0; }
+.player:hover .player__pl.is-playing { opacity:1; }
+.player__ctrl { position:absolute; bottom:0; left:0; right:0; z-index:4; padding:32px 14px 14px; background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%); opacity:0; transition:opacity 0.25s; pointer-events:none; }
+.player:hover .player__ctrl,
+.player.is-active .player__ctrl { opacity:1; pointer-events:auto; }
+.player__seek { position:relative; height:3px; background:rgba(255,255,255,0.25); cursor:pointer; border-radius:2px; margin-bottom:10px; }
+.player__seek:hover { height:5px; margin-bottom:8px; }
+.player__seek-fill { height:100%; background:#fff; border-radius:2px; width:0%; pointer-events:none; transition:width 0.05s linear; }
+.player__seek-thumb { position:absolute; top:50%; right:-6px; transform:translateY(-50%); width:12px; height:12px; border-radius:50%; background:#fff; opacity:0; transition:opacity 0.15s; pointer-events:none; }
+.player__seek:hover .player__seek-thumb { opacity:1; }
+.player__time { display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; color:rgba(255,255,255,0.8); letter-spacing:0.05em; }
+
 .pmeta { padding:48px 32px; display:grid; grid-template-columns:repeat(6,1fr); gap:32px; border-bottom:1px solid var(--border-subtle); }
 .pmeta dt { font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); margin:0 0 8px; }
 .pmeta dd { margin:0; font-family:var(--font-display); font-size:20px; font-weight:500; letter-spacing:-0.015em; }
@@ -22,7 +39,6 @@
 .pbody__t { font-size:18px; line-height:1.6; color:var(--text); max-width:62ch; }
 .pbody__t p { margin:0 0 20px; }
 .pbody__t p:first-of-type::first-letter { font-family:var(--font-display); font-size:72px; font-weight:500; float:left; line-height:0.9; margin:6px 12px 0 0; letter-spacing:-0.03em; }
-.stills { padding:32px; display:grid; grid-template-columns:repeat(12,1fr); gap:12px; }
 .creds { padding:80px 32px; border-top:1px solid var(--border-subtle); display:grid; grid-template-columns:1fr 2fr; gap:48px; }
 .creds h3 { font-family:var(--font-display); font-size:40px; font-weight:500; letter-spacing:-0.025em; margin:0; }
 .creds__l { display:grid; grid-template-columns:1fr 1fr; gap:18px 48px; }
@@ -37,67 +53,61 @@
 .nx__t { font-family:var(--font-display); font-size:48px; font-weight:500; letter-spacing:-0.03em; line-height:1; transition: color var(--d-base) var(--e-out); }
 .nx a:hover .nx__t { color:var(--text-muted); }
 .nx__rt { text-align:right; }
+@media (max-width:640px) {
+  .crumbs { padding:72px 16px 12px; gap:8px; flex-wrap:wrap; }
+  .phero { grid-template-columns:1fr; padding:0 16px 32px; gap:20px; }
+  .phero__lede { font-size:16px; }
+  .player-wrap { padding:32px 16px; }
+  .player.ratio-916 { width:min(360px, 90vw); }
+  .player.ratio-169 { width:100%; }
+  .pmeta { grid-template-columns:repeat(2,1fr); padding:32px 16px; gap:20px; }
+  .pbody { grid-template-columns:1fr; padding:48px 16px; gap:32px; }
+  .pbody__t p:first-of-type::first-letter { font-size:48px; }
+  .creds { grid-template-columns:1fr; padding:48px 16px; gap:24px; }
+  .creds__l { grid-template-columns:1fr; gap:12px; }
+  .related { padding:32px 16px; }
+  .rg { grid-template-columns:1fr; }
+  .nx { grid-template-columns:1fr; padding:48px 16px; gap:32px; }
+  .nx__rt { text-align:left; }
+  .nx__t { font-size:32px; }
+}
 </style></head><body>
 <div id="hd"></div>
-
-<div class="crumbs">
-  <a href="index.html">TOPGONY</a><span>/</span>
-  <a href="work.html">WORK</a><span>/</span>
-  <span>MUSIC VIDEO</span><span>/</span>
-  <span class="cur">001 — NIGHT DRIVE</span>
+<div id="crumbs" class="crumbs"></div>
+<section id="phero" class="phero"></section>
+<div class="player-wrap">
+  <div class="player" id="player">
+    <img class="player__thumb" id="playerThumb" src="" alt=""/>
+    <video class="player__vid" id="playerVid" playsinline preload="metadata"></video>
+    <button class="player__pl" id="playerBtn" aria-label="Play">
+      <svg width="24" height="24" viewBox="0 0 22 22" fill="currentColor"><path d="M6 3l13 8-13 8V3z"/></svg>
+    </button>
+    <div class="player__ctrl" id="playerCtrl">
+      <div class="player__seek" id="seekBar">
+        <div class="player__seek-fill" id="seekFill">
+          <div class="player__seek-thumb"></div>
+        </div>
+      </div>
+      <div class="player__time">
+        <span id="timeCur">0:00</span>
+        <span id="timeDur">0:00</span>
+      </div>
+    </div>
+  </div>
 </div>
-
-<section class="phero">
-  <div>
-    <div class="hero__k">— PROJECT / 001 · 2025 · MUSIC VIDEO</div>
-    <h1>Night drive,<br/>no <em>destination.</em></h1>
-  </div>
-  <p class="phero__lede">서울 외곽, 해가 지고 나서야 시작되는 드라이브. 달리는 창 너머로 흘러가는 빛과 광고판, 사람의 그림자. 4분 21초 동안 멈추지 않는 운동을 담은 뮤직비디오.</p>
-</section>
-
-<section class="player">
-  <button class="player__pl" aria-label="Play">
-    <svg width="30" height="30" viewBox="0 0 22 22" fill="currentColor"><path d="M6 3l13 8-13 8V3z"/></svg>
-  </button>
-  <span class="player__tc">00:00:00:00 / 00:04:21:14</span>
-</section>
-
-<dl class="pmeta">
-  <div><dt>— Client</dt><dd>ARC</dd></div>
-  <div><dt>— Year</dt><dd>2025</dd></div>
-  <div><dt>— Role</dt><dd>Director · DP · Edit</dd></div>
-  <div><dt>— Camera</dt><dd>ARRI Alexa Mini LF</dd></div>
-  <div><dt>— Duration</dt><dd>04:21</dd></div>
-  <div><dt>— Format</dt><dd>16:9 + 9:16</dd></div>
-</dl>
-
-<section class="pbody">
-  <div class="pbody__s">— NOTES<br/>CH.01 — SUNSET<br/>CH.02 — GANGBYEON<br/>CH.03 — TUNNEL<br/>CH.04 — HEADLIGHTS<br/><br/>SHOT ON LOCATION<br/>SEL · 5 NIGHTS<br/>2025.10 — 2025.11</div>
-  <div class="pbody__t">
-    <p>드라이브의 본질은 도착이 아니라 운동 그 자체다. 우리는 해가 지는 순간부터 카메라를 돌렸고, 다섯 밤 동안 서울 외곽의 국도와 고가도로 위를 달렸다. 창문 너머의 빛은 결코 같은 모양으로 두 번 지나가지 않는다.</p>
-    <p>음악은 멈추지 않는다. 컷도 멈추지 않는다. 리듬이 숨을 쉬는 순간은 오직 긴 터널에 진입할 때뿐이다 — 그 어둠 속에서만 잠시 모든 것이 정지한다. 그리고 터널을 빠져나오면 다시 모든 것이 흐른다.</p>
-    <p>카메라는 차량 보닛, 사이드미러, 뒷좌석, 그리고 동행한 스쿠터 위에 장착되었다. 대부분의 컷은 실시간으로 촬영되었고, 편집은 음악의 템포를 거스르지 않는 범위에서만 리듬을 잘랐다.</p>
-  </div>
-</section>
-
-<div class="sh"><h2>Stills.</h2><span>8 FRAMES · COLOR GRADED</span></div>
-<section class="stills" id="stills"></section>
-
-<section class="creds">
-  <h3>Credits.</h3>
+<dl class="pmeta" id="pmeta"></dl>
+<section class="pbody" id="pbody"></section>
+<section style="padding:48px 32px 80px; border-top:1px solid var(--border-subtle);">
   <div class="creds__l" id="creds"></div>
 </section>
-
 <section class="related">
   <h3>Related.</h3>
   <div class="rg" id="related"></div>
 </section>
-
 <nav class="nx">
-  <a href="project.html"><div class="nx__k">← PREV · 011</div><div class="nx__t">Afterglow (single)</div></a>
-  <a href="project.html" class="nx__rt"><div class="nx__k">NEXT · 002 →</div><div class="nx__t">Paper lanterns</div></a>
+  <a href="work.html"><div class="nx__k">← BACK TO WORK</div><div class="nx__t">All projects</div></a>
+  <div id="nxNext"></div>
 </nav>
-
 <div id="ft"></div>
 
 <script src="data.js"></script><script src="components.js"></script>
@@ -105,23 +115,140 @@
 document.getElementById('hd').innerHTML = tplHeader('work');
 document.getElementById('ft').innerHTML = tplFooter();
 
-const stills = [
-  {span:7, r:'16/9', tc:'00:00:24:11'}, {span:5, r:'16/9', tc:'00:00:41:02'},
-  {span:4, r:'3/4', tc:'00:01:06:18'}, {span:4, r:'3/4', tc:'00:01:22:09'},
-  {span:4, r:'3/4', tc:'00:01:44:21'}, {span:12, r:'21/7', tc:'00:02:14:08'},
-  {span:6, r:'16/9', tc:'00:02:58:00'}, {span:6, r:'16/9', tc:'00:03:22:13'},
-];
-document.getElementById('stills').innerHTML = stills.map(s =>
-  `<div class="ph" style="grid-column:span ${s.span}; aspect-ratio:${s.r}" data-r="[ STILL · ${s.r.replace('/',':')} ]"><span class="ph__dur">${s.tc}</span></div>`
+// URL 파라미터에서 작품 번호 읽기
+const no = location.hash.replace('#no=', '').trim() || TG.works[0].no;
+const idx = TG.works.findIndex(x => x.no === no);
+const w = idx >= 0 ? TG.works[idx] : TG.works[0];
+
+// 타이틀
+document.getElementById('pageTitle').textContent = `Topgony — ${w.title}`;
+
+// 브레드크럼
+document.getElementById('crumbs').innerHTML =
+  `<a href="index.html">TOPGONY</a><span>/</span>
+   <a href="work.html">WORK</a><span>/</span>
+   <span>${w.catLabel}</span><span>/</span>
+   <span class="cur">${w.no} — ${w.title}</span>`;
+
+// 히어로
+document.getElementById('phero').innerHTML =
+  `<div>
+     <div class="hero__k">— PROJECT / ${w.no} · ${w.year} · ${w.catLabel} · ${w.client}</div>
+     <h1>${w.title}</h1>
+   </div>
+   <p class="phero__lede">${w.client} · ${w.catLabel} · ${w.year} · ${w.dur}</p>`;
+
+// 플레이어 비율 설정
+const player = document.getElementById('player');
+player.classList.add(w.ratio === '16/9' ? 'ratio-169' : 'ratio-916');
+
+// 썸네일 / 영상 세팅
+const thumb = document.getElementById('playerThumb');
+const vid = document.getElementById('playerVid');
+const btn = document.getElementById('playerBtn');
+
+if (w.thumb) { thumb.src = w.thumb; thumb.alt = w.title; }
+
+if (w.video) {
+  vid.src = w.video;
+} else {
+  btn.style.display = 'none';
+}
+
+// 메타 정보
+const formatLabel = w.ratio === '16/9' ? `16:9 ${w.catLabel}` : `9:16 ${w.catLabel}`;
+document.getElementById('pmeta').innerHTML =
+  `<div><dt>— Client</dt><dd>${w.client}</dd></div>
+   <div><dt>— Year</dt><dd>${w.year}</dd></div>
+   <div><dt>— Role</dt><dd>${w.role}</dd></div>
+   <div><dt>— Format</dt><dd>${formatLabel}</dd></div>
+   <div><dt>— Duration</dt><dd>${w.dur}</dd></div>
+   <div><dt>— Date</dt><dd>${w.year}.${String(w.month).padStart(2,'0')}</dd></div>`;
+
+// 본문
+document.getElementById('pbody').innerHTML =
+  `<div class="pbody__s">— NOTES<br/>${w.catLabel}<br/>${w.role}<br/><br/>${w.year}.${String(w.month).padStart(2,'0')}</div>
+   <div class="pbody__t"><p>${w.title} — ${w.client} · ${w.year}</p></div>`;
+
+// 크레딧
+const roleMap = {'DIR':'DIRECTOR','DP':'DIRECTOR OF PHOTOGRAPHY','EDIT':'EDITOR'};
+const roles = w.role.split(' · ').map(r => [roleMap[r] || r, 'Topgony']);
+const credRows = [...roles, ['CLIENT', w.client]];
+document.getElementById('creds').innerHTML = credRows.map(([k,v]) =>
+  `<div class="creds__r"><strong>${k}</strong><span>${v}</span></div>`
 ).join('');
 
-const creds = [
-  ['DIRECTOR','Topgony'],['DP','Topgony'],['EDITOR','Topgony'],['PRODUCER','HK Kim'],
-  ['AC','JS Park'],['GAFFER','MK Lee'],['COLOR','Studio Hexagon'],['MUSIC','ARC'],
-  ['SOUND','Foley House'],['AGENCY','—'],
-];
-document.getElementById('creds').innerHTML = creds.map(([k,v]) => `<div class="creds__r"><strong>${k}</strong><span>${v}</span></div>`).join('');
+// 관련 작품 (현재 작품 제외, 최대 3개)
+const related = TG.works.filter(x => x.no !== w.no).slice(0, 3).map(x => ({...x, span:4}));
+document.getElementById('related').innerHTML = related.map(tplCard).join('');
+bindVideos();
 
-document.getElementById('related').innerHTML = TG.works.slice(1,4).map(w => ({...w, span:4})).map(tplCard).join('');
+// 다음 작품 네비게이션
+const next = TG.works[(idx + 1) % TG.works.length];
+document.getElementById('nxNext').innerHTML =
+  `<a href="project.html#no=${next.no}">
+     <div class="nx__k nx__rt">NEXT PROJECT →</div>
+     <div class="nx__t nx__rt">${next.title}</div>
+   </a>`;
+
+// 플레이어 로직
+if (w.video) {
+  const seekBar  = document.getElementById('seekBar');
+  const seekFill = document.getElementById('seekFill');
+  const timeCur  = document.getElementById('timeCur');
+  const timeDur  = document.getElementById('timeDur');
+  const PLAY_IC  = '<svg width="24" height="24" viewBox="0 0 22 22" fill="currentColor"><path d="M6 3l13 8-13 8V3z"/></svg>';
+  const PAUSE_IC = '<svg width="20" height="20" viewBox="0 0 22 22" fill="currentColor"><rect x="4" y="3" width="4" height="16"/><rect x="14" y="3" width="4" height="16"/></svg>';
+  const fmt = s => `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+
+  btn.addEventListener('click', () => {
+    if (vid.paused) {
+      vid.style.display = 'block';
+      thumb.style.display = 'none';
+      player.classList.add('is-active');
+      vid.play();
+      btn.classList.add('is-playing');
+      btn.innerHTML = PAUSE_IC;
+    } else {
+      vid.pause();
+      btn.classList.remove('is-playing');
+      btn.innerHTML = PLAY_IC;
+    }
+  });
+
+  vid.addEventListener('ended', () => {
+    vid.style.display = 'none';
+    thumb.style.display = 'block';
+    player.classList.remove('is-active');
+    btn.classList.remove('is-playing');
+    btn.innerHTML = PLAY_IC;
+    seekFill.style.width = '0%';
+    timeCur.textContent = '0:00';
+  });
+
+  vid.addEventListener('loadedmetadata', () => { timeDur.textContent = fmt(vid.duration); });
+
+  vid.addEventListener('timeupdate', () => {
+    if (!vid.duration) return;
+    seekFill.style.width = (vid.currentTime / vid.duration * 100) + '%';
+    timeCur.textContent = fmt(vid.currentTime);
+  });
+
+  let isSeeking = false;
+  const seek = e => {
+    const rect = seekBar.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(e.clientX - rect.left, rect.width)) / rect.width;
+    vid.currentTime = pct * vid.duration;
+    seekFill.style.width = (pct * 100) + '%';
+    timeCur.textContent = fmt(vid.currentTime);
+  };
+  seekBar.addEventListener('mousedown', e => {
+    isSeeking = true;
+    if (vid.style.display === 'none') { vid.style.display = 'block'; thumb.style.display = 'none'; player.classList.add('is-active'); }
+    seek(e);
+  });
+  document.addEventListener('mousemove', e => { if (isSeeking) seek(e); });
+  document.addEventListener('mouseup', () => { isSeeking = false; });
+}
 </script>
 </body></html>

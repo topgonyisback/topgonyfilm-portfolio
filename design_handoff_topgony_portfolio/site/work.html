@@ -1,7 +1,8 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"/><title>Topgony — Work</title>
+<html lang="ko"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Topgony — Work</title>
 <link rel="stylesheet" href="site.css"/>
 <style>
+#hd + .fb { margin-top: 64px; }
 .vt { display:flex; border:1px solid var(--border); }
 .vt button { padding:8px 12px; background:transparent; border:0; font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-muted); cursor:pointer; }
 .vt button.is-active { background:var(--text); color:#000; }
@@ -11,11 +12,6 @@ body[data-v="list"] #grid { display:none; }
 .yd strong { font-family:var(--font-display); font-size:48px; font-weight:500; letter-spacing:-0.03em; color:var(--text); }
 </style></head><body data-v="grid">
 <div id="hd"></div>
-
-<section class="hero">
-  <div><div class="hero__k">— Archive / 2019 → 2026</div><h1>Work,<br/><em>every one.</em></h1></div>
-  <div class="hero__s" id="counts">42 FILMS · 6 CATEGORIES<br/>HOVER A ROW FOR PREVIEW</div>
-</section>
 
 <div class="fb">
   <div id="chipsWrap"></div>
@@ -36,6 +32,7 @@ document.getElementById('hd').innerHTML = tplHeader('work');
 document.getElementById('ft').innerHTML = tplFooter();
 document.getElementById('chipsWrap').innerHTML = tplChips('all');
 document.getElementById('grid').innerHTML = TG.works.map(tplCard).join('');
+bindVideos();
 
 const years = [...new Set(TG.works.map(w => w.year))].sort((a,b) => b-a);
 document.getElementById('list').innerHTML = years.map(y => {

@@ -1,9 +1,12 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"/><title>Topgony — Frames that breathe</title>
+<html lang="ko"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Topgony — Frames that breathe</title>
 <link rel="stylesheet" href="site.css"/>
 <style>
-.feature { padding:24px 32px; display:grid; grid-template-columns:repeat(12,1fr); gap:16px; }
-.feature__big { grid-column:span 12; aspect-ratio:21/9; }
+.hero-film { position:relative; overflow:hidden; min-height:80vh; display:flex; flex-direction:column; justify-content:flex-end; border-bottom:1px solid var(--border-subtle); }
+.hero-film__bg { position:absolute; inset:0; }
+.hero-film__bg .ph { width:100%; height:100%; aspect-ratio:unset !important; }
+.hero-film__bg::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 100%); z-index:1; }
+.hero-film__content { position:relative; z-index:2; padding:60px 32px 48px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:end; }
 .intro { padding:80px 32px; display:grid; grid-template-columns:1fr 2fr; gap:64px; border-bottom:1px solid var(--border-subtle); }
 .intro__k { font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); color:var(--text-dim); text-transform:uppercase; margin-bottom:16px; }
 .intro__t { font-family:var(--font-display); font-size:clamp(40px,5vw,72px); font-weight:500; letter-spacing:-0.03em; line-height:1; margin:0 0 24px; }
@@ -13,23 +16,29 @@
 .cta h2 em { font-style:normal; color:var(--text-dim); }
 .cta__r { display:flex; flex-direction:column; align-items:flex-end; gap:20px; }
 .cta__r span { font-family:var(--font-mono); font-size:14px; color:var(--text); letter-spacing:var(--ls-wide); }
+@media (max-width:640px) {
+  .hero-film__content { grid-template-columns:1fr; padding:40px 16px 32px; gap:24px; }
+  .intro { grid-template-columns:1fr; padding:48px 16px; gap:32px; }
+  .intro__b { font-size:16px; }
+  .cta { grid-template-columns:1fr; padding:64px 16px; gap:24px; }
+  .cta__r { align-items:flex-start; }
+}
 </style></head><body>
 <div id="hd"></div>
 
-<section class="hero">
-  <div>
-    <div class="hero__k">— Topgony / Director · DP</div>
-    <h1>Frames<br/>that <em>breathe</em><br/>between cuts.</h1>
-  </div>
-  <div class="hero__s">SEOUL — SINCE 2019<br/>42 FILMS · 30+ CLIENTS<br/><br/>MV · BRAND · FASHION · CF<br/>16:9 / 9:16 · 4K</div>
-</section>
-
-<section class="feature">
-  <a href="project.html" class="feature__big card" style="grid-column:span 12">
-    <div class="ph" style="aspect-ratio:21/9" data-r="[ FEATURED · 21:9 ]">
+<section class="hero-film">
+  <div class="hero-film__bg">
+    <div class="ph" data-r="">
       <span class="ph__tag">MUSIC VIDEO</span><span class="ph__dur">04:21</span>
     </div>
-  </a>
+  </div>
+  <div class="hero-film__content">
+    <div>
+      <div class="hero__k">— Topgony / Director · DP</div>
+      <h1>Frames<br/>that <em>breathe</em><br/>between cuts.</h1>
+    </div>
+    <div class="hero__s">SEOUL — SINCE 2019<br/>42 FILMS · 30+ CLIENTS<br/><br/>MV · BRAND · FASHION · CF<br/>16:9 / 9:16 · 4K</div>
+  </div>
 </section>
 
 <div class="sh"><h2>Selected work,<br/>2024 → 2026.</h2><span>12 SELECT · GO TO ARCHIVE →</span></div>
@@ -61,5 +70,6 @@
 document.getElementById('hd').innerHTML = tplHeader('index');
 document.getElementById('ft').innerHTML = tplFooter();
 document.getElementById('grid').innerHTML = TG.works.slice(0,8).map(tplCard).join('');
+bindVideos();
 </script>
 </body></html>
