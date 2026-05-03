@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title id="pageTitle">Topgony — Project</title>
-<link rel="stylesheet" href="site.css"/>
+<link rel="stylesheet" href="site.css?v=2"/>
 <style>
-.crumbs { padding:90px 32px 16px; display:flex; gap:12px; align-items:center; font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-muted); }
+.crumbs { padding:90px var(--side-pad) 16px; display:flex; gap:12px; align-items:center; font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-muted); }
 .crumbs span { color:var(--text-dim); }
 .crumbs .cur { color:var(--text); }
-.phero { padding:0 32px 48px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:end; border-bottom:1px solid var(--border-subtle); }
+.phero { padding:0 var(--side-pad) 48px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:end; border-bottom:1px solid var(--border-subtle); }
 .phero h1 { font-family:var(--font-display); font-size:clamp(48px,6vw,96px); font-weight:500; line-height:0.92; letter-spacing:-0.04em; margin:0; }
 .phero h1 em { font-style:normal; color:var(--text-dim); }
 .phero__lede { font-size:18px; line-height:1.5; color:var(--text-muted); max-width:52ch; padding-bottom:16px; }
 
-.player-wrap { padding:48px 32px; display:flex; justify-content:center; border-bottom:1px solid var(--border-subtle); }
+.player-wrap { padding:48px var(--side-pad); display:flex; justify-content:center; border-bottom:1px solid var(--border-subtle); }
 .player { position:relative; background:#0a0a0a; overflow:hidden; flex-shrink:0; }
 .player.ratio-916 { width:360px; aspect-ratio:9/16; }
 .player.ratio-169 { width:min(720px, 100%); aspect-ratio:16/9; }
@@ -31,23 +31,23 @@
 .player__seek:hover .player__seek-thumb { opacity:1; }
 .player__time { display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; color:rgba(255,255,255,0.8); letter-spacing:0.05em; }
 
-.pmeta { padding:48px 32px; display:grid; grid-template-columns:repeat(6,1fr); gap:32px; border-bottom:1px solid var(--border-subtle); }
+.pmeta { padding:48px var(--side-pad); display:grid; grid-template-columns:repeat(6,1fr); gap:32px; border-bottom:1px solid var(--border-subtle); }
 .pmeta dt { font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); margin:0 0 8px; }
 .pmeta dd { margin:0; font-family:var(--font-display); font-size:20px; font-weight:500; letter-spacing:-0.015em; }
-.pbody { padding:80px 32px; display:grid; grid-template-columns:1fr 2fr; gap:64px; border-bottom:1px solid var(--border-subtle); }
+.pbody { padding:80px var(--side-pad); display:grid; grid-template-columns:1fr 2fr; gap:64px; border-bottom:1px solid var(--border-subtle); }
 .pbody__s { font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); line-height:1.8; }
 .pbody__t { font-size:18px; line-height:1.6; color:var(--text); max-width:62ch; }
 .pbody__t p { margin:0 0 20px; }
 .pbody__t p:first-of-type::first-letter { font-family:var(--font-display); font-size:72px; font-weight:500; float:left; line-height:0.9; margin:6px 12px 0 0; letter-spacing:-0.03em; }
-.creds { padding:80px 32px; border-top:1px solid var(--border-subtle); display:grid; grid-template-columns:1fr 2fr; gap:48px; }
+.creds { padding:80px var(--side-pad); border-top:1px solid var(--border-subtle); display:grid; grid-template-columns:1fr 2fr; gap:48px; }
 .creds h3 { font-family:var(--font-display); font-size:40px; font-weight:500; letter-spacing:-0.025em; margin:0; }
 .creds__l { display:grid; grid-template-columns:1fr 1fr; gap:18px 48px; }
 .creds__r { display:flex; justify-content:space-between; padding-bottom:12px; border-bottom:1px solid var(--border-subtle); font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-wide); color:var(--text-muted); text-transform:uppercase; }
 .creds__r strong { color:var(--text); font-weight:400; letter-spacing:var(--ls-meta); }
-.related { padding:48px 32px; border-top:1px solid var(--border-subtle); }
+.related { padding:48px var(--side-pad); border-top:1px solid var(--border-subtle); }
 .related h3 { font-family:var(--font-display); font-size:40px; font-weight:500; letter-spacing:-0.025em; margin:0 0 24px; }
 .rg { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.nx { padding:80px 32px; border-top:1px solid var(--border); display:grid; grid-template-columns:1fr 1fr; gap:48px; }
+.nx { padding:80px var(--side-pad); border-top:1px solid var(--border); display:grid; grid-template-columns:1fr 1fr; gap:48px; }
 .nx a { color:var(--text); }
 .nx__k { font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); margin-bottom:12px; }
 .nx__t { font-family:var(--font-display); font-size:48px; font-weight:500; letter-spacing:-0.03em; line-height:1; transition: color var(--d-base) var(--e-out); }
@@ -97,7 +97,7 @@
 </div>
 <dl class="pmeta" id="pmeta"></dl>
 <section class="pbody" id="pbody"></section>
-<section style="padding:48px 32px 80px; border-top:1px solid var(--border-subtle);">
+<section style="padding:48px var(--side-pad) 80px; border-top:1px solid var(--border-subtle);">
   <div class="creds__l" id="creds"></div>
 </section>
 <section class="related">
