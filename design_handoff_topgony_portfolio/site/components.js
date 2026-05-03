@@ -27,10 +27,10 @@ window.tplFooter = () => `
     <li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
   </ul></div>
   <div class="ft__c"><h5>— Contact</h5><ul>
-    <li><a>${T.brand.email}</a></li><li><a>${T.brand.phone}</a></li>
+    <li><a href="mailto:${T.brand.email}">${T.brand.email}</a></li><li><a>${T.brand.phone}</a></li>
   </ul></div>
   <div class="ft__c"><h5>— Social</h5><ul>
-    <li><a>Instagram ↗</a></li><li><a>Vimeo ↗</a></li><li><a>YouTube ↗</a></li>
+    <li><a href="https://www.instagram.com/topgony/" target="_blank" rel="noopener">Instagram ↗</a></li>
   </ul></div>
   <div class="ft__m"><span>© 2026 — TOPGONY · ALL RIGHTS RESERVED</span><span>SEOUL · SINCE 2019</span></div>
 </footer>`;
