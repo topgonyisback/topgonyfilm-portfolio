@@ -2,9 +2,10 @@
 <html lang="ko"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Topgony — About</title>
 <link rel="stylesheet" href="site.css"/>
 <style>
-.pb { padding:80px var(--side-pad); display:grid; grid-template-columns:5fr 7fr; gap:64px; }
-.portrait { aspect-ratio:3/4; background: repeating-linear-gradient(135deg, #0c0c0c 0 12px, #131313 12px 24px); position:relative; }
-.portrait::after { content:"[ PORTRAIT · 3:4 ]"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:10px; color:var(--ink-500); letter-spacing:var(--ls-meta); text-transform:uppercase; }
+.pb { padding:80px var(--side-pad); display:flex; flex-direction:column; gap:48px; }
+.portrait-strip { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+.portrait-strip__img { aspect-ratio:3/4; background:repeating-linear-gradient(135deg,#0c0c0c 0 12px,#131313 12px 24px); position:relative; overflow:hidden; }
+.portrait-strip__img img { width:100%; height:100%; object-fit:cover; display:block; }
 .bio { font-size:18px; line-height:1.65; color:var(--text); max-width:62ch; }
 .bio p { margin:0 0 22px; }
 .bio p:first-of-type::first-letter { font-family:var(--font-display); font-size:96px; font-weight:500; float:left; line-height:0.88; margin:6px 14px 0 0; letter-spacing:-0.04em; }
@@ -28,8 +29,8 @@
 .cta__r { display:flex; flex-direction:column; align-items:flex-end; gap:20px; }
 .cta__r span { font-family:var(--font-mono); font-size:14px; letter-spacing:var(--ls-wide); }
 @media (max-width:640px) {
-  .pb { grid-template-columns:1fr; padding:48px 16px; gap:32px; }
-  .portrait { max-height:320px; }
+  .pb { padding:48px 16px; gap:32px; }
+  .portrait-strip { grid-template-columns:repeat(2,1fr); }
   .bio { font-size:16px; }
   .bio p:first-of-type::first-letter { font-size:64px; }
   .tl { padding:0 16px 32px; }
@@ -51,7 +52,13 @@
 </section>
 
 <section class="pb">
-  <div class="portrait"></div>
+  <div class="portrait-strip">
+    <div class="portrait-strip__img"><img src="photos/about-1.jpeg" alt=""/></div>
+    <div class="portrait-strip__img"><img src="photos/about-2.jpeg" alt=""/></div>
+    <div class="portrait-strip__img"><img src="photos/about-3.jpeg" alt=""/></div>
+    <div class="portrait-strip__img"><img src="photos/about-4.JPG" alt=""/></div>
+    <div class="portrait-strip__img"><img src="photos/about-5.JPG" alt=""/></div>
+  </div>
   <div class="bio">
     <p>서울을 기반으로 활동하는 비디오그래퍼 Topgony. 뮤직비디오와 브랜드 필름을 중심으로, 빛과 움직임이 만드는 영화적 순간을 기록합니다.</p>
     <p>영상 한 컷은 시간의 조각입니다. 속도와 호흡, 침묵이 교차하는 자리에서 프레임은 관객의 시선을 이끌고 그 안에 감정을 담습니다. Topgony의 작업은 기술적 완성도를 바탕으로 하되, 그 순간의 공기를 잃지 않는 것을 우선합니다.</p>
