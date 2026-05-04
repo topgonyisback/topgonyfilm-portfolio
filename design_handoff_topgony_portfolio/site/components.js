@@ -39,6 +39,7 @@ window.tplFooter = () => `
 window.tplCard = (w) => `
 <a class="card" data-cat="${w.cat}" href="project.html#no=${w.no}">
   <div class="ph" data-r="${w.thumb ? '' : '[ 3:4 ]'}" ${w.thumb ? `style="background-image:url('${w.thumb}');background-size:cover;background-position:center;"` : ''}>
+    ${w.preview ? `<video class="card__vid" muted loop playsinline preload="none" data-src="${w.preview}"></video>` : ''}
     <span class="ph__tag">${w.catLabel}</span><span class="ph__dur">${w.dur}</span>
   </div>
   <div class="card__m">
@@ -47,6 +48,24 @@ window.tplCard = (w) => `
     <span class="card__cl">${w.client} · ${w.year}</span>
   </div>
 </a>`;
+
+// 카드 비디오 호버 재생
+window.bindVideos = () => {
+  document.querySelectorAll('.card').forEach(card => {
+    const vid = card.querySelector('.card__vid');
+    if (!vid) return;
+    card.addEventListener('mouseenter', () => {
+      if (!vid.src && vid.dataset.src) vid.src = vid.dataset.src;
+      vid.play().catch(() => {});
+      vid.style.opacity = '1';
+    });
+    card.addEventListener('mouseleave', () => {
+      vid.pause();
+      vid.currentTime = 0;
+      vid.style.opacity = '0';
+    });
+  });
+};
 
 // 인덱스 행 (리스트 뷰)
 window.tplIdx = (w) => `

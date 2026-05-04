@@ -32,6 +32,7 @@ document.getElementById('hd').innerHTML = tplHeader('work');
 document.getElementById('ft').innerHTML = tplFooter();
 document.getElementById('chipsWrap').innerHTML = tplChips('all');
 document.getElementById('grid').innerHTML = TG.works.map(tplCard).join('');
+bindVideos();
 
 const years = [...new Set(TG.works.map(w => w.year))].sort((a,b) => b-a);
 document.getElementById('list').innerHTML = years.map(y => {

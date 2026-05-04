@@ -144,6 +144,7 @@ document.getElementById('creds').innerHTML = credRows.map(([k,v]) =>
 // 관련 작품 (현재 작품 제외, 최대 3개)
 const related = TG.works.filter(x => x.no !== w.no).slice(0, 3).map(x => ({...x, span:4}));
 document.getElementById('related').innerHTML = related.map(tplCard).join('');
+bindVideos();
 
 // 다음 작품 네비게이션
 const next = TG.works[(idx + 1) % TG.works.length];
