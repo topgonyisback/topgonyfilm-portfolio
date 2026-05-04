@@ -52,6 +52,13 @@
 .nx__t { font-family:var(--font-display); font-size:48px; font-weight:500; letter-spacing:-0.03em; line-height:1; transition: color var(--d-base) var(--e-out); }
 .nx a:hover .nx__t { color:var(--text-muted); }
 .nx__rt { text-align:right; }
+/* 터치 기기: hover 고착 방지 + 탭으로 컨트롤 토글 */
+@media (hover: none) {
+  .player:hover .player__pl.is-playing { opacity:0; }
+  .player:hover .player__ctrl { opacity:0; pointer-events:none; }
+  .player.show-ctrl .player__pl.is-playing { opacity:1; }
+  .player.show-ctrl .player__ctrl { opacity:1; pointer-events:auto; }
+}
 @media (max-width:640px) {
   .crumbs { padding:72px 16px 12px; gap:8px; flex-wrap:wrap; }
   .phero { grid-template-columns:1fr; padding:0 16px 32px; gap:20px; }
@@ -247,6 +254,27 @@ if (w.video) {
   });
   document.addEventListener('mousemove', e => { if (isSeeking) seek(e); });
   document.addEventListener('mouseup', () => { isSeeking = false; });
+
+  // 모바일: 영상 탭 → 컨트롤 3초 표시 후 자동 숨김
+  let ctrlTimer;
+  const showCtrlBriefly = () => {
+    player.classList.add('show-ctrl');
+    clearTimeout(ctrlTimer);
+    ctrlTimer = setTimeout(() => player.classList.remove('show-ctrl'), 3000);
+  };
+  player.addEventListener('touchend', e => {
+    if (e.target === btn || e.target.closest('button') === btn) return;
+    if (!vid.paused) {
+      if (player.classList.contains('show-ctrl')) {
+        player.classList.remove('show-ctrl');
+        clearTimeout(ctrlTimer);
+      } else {
+        showCtrlBriefly();
+      }
+    }
+  });
+  // 재생 시작하면 3초 후 자동 숨김
+  vid.addEventListener('play', showCtrlBriefly);
 }
 </script>
 </body></html>
