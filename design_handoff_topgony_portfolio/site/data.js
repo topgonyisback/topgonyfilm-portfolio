@@ -1,6 +1,6 @@
 // Topgony 포트폴리오 — 공용 데이터
 window.TG = {
-  brand: { name: 'topgony.', tag: 'Director · DP — Seoul', email: 'topgonyfilm@gmail.com', phone: '+82 10 0000 0000' },
+  brand: { name: 'topgony.', tag: 'Director · DP — Seoul', email: 'topgonyfilm@gmail.com', phone: '+82 10 2887 1388' },
   works: [
     { no: '001', title: '2025 쇼난마라톤 김지섭 선수', client: 'THE NORTHFACE', cat: 'sports', catLabel: 'SPORTS', year: 2025, month: 1, dur: '00:30', role: 'DIR · DP · EDIT', ratio: '9/16', span: 7, video: 'videos/northface.mp4', thumb: 'thumbs/northface-kimjiseop.png' },
     { no: '002', title: '2025 쇼난마라톤 심재덕 선수', client: 'THE NORTHFACE', cat: 'sports', catLabel: 'SPORTS', year: 2025, month: 1, dur: '00:28', role: 'DIR · DP · EDIT', ratio: '9/16', span: 7, video: 'videos/northface-simjaeduk.mp4', thumb: 'thumbs/northface-simjaeduk.png' },

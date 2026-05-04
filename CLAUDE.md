@@ -20,15 +20,15 @@ videograph_portfolio/
 ```
 
 ## 디자인 시스템
-- `tokens.css`에 모든 CSS 변수 정의
-- `site.css`가 `@import url("../design-system/tokens.css")`로 로드
+- 모든 CSS 변수가 `site.css`에 직접 인라인됨 (`tokens.css` import 제거됨)
 - 폰트: `--font-display: Space Grotesk` / `--font-body: Inter Tight` / `--font-mono: JetBrains Mono`
 - 컬러: `--text`, `--text-muted`, `--text-dim`, `--border`, `--border-subtle` 등
+- 레이아웃: `--side-pad: max(32px, calc((100vw - 1200px) / 2))` — 1200px 이상에서 양쪽 패딩 자동 확장
 
 ## 프리뷰 서버 주의사항
-- 서버 루트는 반드시 `design_handoff_topgony_portfolio/` (site/ 하위만 서빙하면 `../design-system/tokens.css` 404)
-- launch.json: `"runtimeArgs": ["serve", "videograph_portfolio/design_handoff_topgony_portfolio", "-p", "3456"]`
-- 접근 URL: `http://localhost:3456/site/` (트레일링 슬래시 필수, 없으면 상대경로 깨짐)
+- 서버 루트는 `design_handoff_topgony_portfolio/site/` — tokens.css가 site.css에 인라인됐으므로 site/ 직접 서빙 가능
+- launch.json: `"runtimeArgs": ["serve", "videograph_portfolio/design_handoff_topgony_portfolio/site", "-p", "3456"]`
+- 접근 URL: `http://localhost:3456/` (site/ 루트에서 바로 서빙됨)
 
 ## 스택
 - 정적 HTML/CSS/JS (프레임워크 없음)
