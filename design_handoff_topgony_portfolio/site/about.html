@@ -66,10 +66,10 @@
     <div class="portrait-strip__img"><img src="photos/about-5.JPG" alt=""/></div>
   </div>
   <div class="bio">
-    <p>서울을 기반으로 활동하는 비디오그래퍼 Topgony. 뮤직비디오와 브랜드 필름을 중심으로, 빛과 움직임이 만드는 영화적 순간을 기록합니다.</p>
-    <p>영상 한 컷은 시간의 조각입니다. 속도와 호흡, 침묵이 교차하는 자리에서 프레임은 관객의 시선을 이끌고 그 안에 감정을 담습니다. Topgony의 작업은 기술적 완성도를 바탕으로 하되, 그 순간의 공기를 잃지 않는 것을 우선합니다.</p>
-    <p>2019년부터 독립적으로 활동을 시작, ARC, Hyundai, Naver, Atelier Noir 등 국내외 브랜드와 협업해 왔습니다. 16:9 랜드스케이프부터 9:16 버티컬까지 다양한 포맷에 대응합니다.</p>
-    <p>— 오래 붙잡고, 짧게 자르고, 가만히 기다립니다.</p>
+    <p data-i18n="about.bio.1">서울을 기반으로 활동하는 비디오그래퍼 Topgony. 뮤직비디오와 브랜드 필름을 중심으로, 빛과 움직임이 만드는 영화적 순간을 기록합니다.</p>
+    <p data-i18n="about.bio.2">영상 한 컷은 시간의 조각입니다. 속도와 호흡, 침묵이 교차하는 자리에서 프레임은 관객의 시선을 이끌고 그 안에 감정을 담습니다. Topgony의 작업은 기술적 완성도를 바탕으로 하되, 그 순간의 공기를 잃지 않는 것을 우선합니다.</p>
+    <p data-i18n="about.bio.3">2019년부터 독립적으로 활동을 시작, ARC, Hyundai, Naver, Atelier Noir 등 국내외 브랜드와 협업해 왔습니다. 16:9 랜드스케이프부터 9:16 버티컬까지 다양한 포맷에 대응합니다.</p>
+    <p data-i18n="about.bio.4">— 오래 붙잡고, 짧게 자르고, 가만히 기다립니다.</p>
   </div>
 </section>
 
@@ -104,21 +104,23 @@
 
 <div id="ft"></div>
 
-<script src="data.js"></script><script src="components.js"></script>
+<script src="i18n.js"></script><script src="data.js"></script><script src="components.js"></script>
 <script>
 document.getElementById('hd').innerHTML = tplHeader('about');
 document.getElementById('ft').innerHTML = tplFooter();
 
-document.getElementById('tl').innerHTML = TG.timeline.map(t =>
-  `<div class="tl__r"><div class="tl__y">${t.y}</div><div class="tl__role">${t.role}</div><div class="tl__d">${t.desc}</div><div class="tl__tag">${t.tag}</div></div>`
+document.getElementById('tl').innerHTML = TG.timeline.map(tl =>
+  `<div class="tl__r"><div class="tl__y">${tl.y}</div><div class="tl__role">${tl.role}</div><div class="tl__d">${t(tl.desc, tl.desc_en)}</div><div class="tl__tag">${tl.tag}</div></div>`
 ).join('');
 
 document.getElementById('svc').innerHTML = TG.services.map(s =>
-  `<div class="svc__c"><span class="svc__no">— ${s.no}</span><h3>${s.t}</h3><p>${s.d}</p><div class="svc__m">${s.m}</div></div>`
+  `<div class="svc__c"><span class="svc__no">— ${s.no}</span><h3>${s.t}</h3><p>${t(s.d, s.d_en)}</p><div class="svc__m">${s.m}</div></div>`
 ).join('');
 
 document.getElementById('press').innerHTML = TG.press.map(p =>
   `<div class="press__r"><span>${p.y}</span><strong>${p.t}</strong><span>${p.d}</span><span>${p.s}</span></div>`
 ).join('');
+
+applyI18n();
 </script>
 </body></html>

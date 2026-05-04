@@ -53,10 +53,10 @@
 
 <section class="cm">
   <div class="info">
-    <div class="info__c"><h3>— Email</h3><p><a href="mailto:topgonyfilm@gmail.com">topgonyfilm@gmail.com</a></p><small>업무 문의 · 평균 48시간 회신</small></div>
-    <div class="info__c"><h3>— Phone</h3><p>+82 10 2887 1388</p><small>평일 10:00 — 19:00 KST</small></div>
+    <div class="info__c"><h3>— Email</h3><p><a href="mailto:topgonyfilm@gmail.com">topgonyfilm@gmail.com</a></p><small data-i18n="contact.email.sub">업무 문의 · 평균 48시간 회신</small></div>
+    <div class="info__c"><h3>— Phone</h3><p>+82 10 2887 1388</p><small data-i18n="contact.phone.sub">평일 10:00 — 19:00 KST</small></div>
     <div class="info__c"><h3>— Social</h3><p><a href="https://www.instagram.com/topgony/" target="_blank" rel="noopener">Instagram ↗</a></p><small>@topgony</small></div>
-    <div class="info__c"><h3>— Availability</h3><p>2026 Q3 — OPEN</p><small>급한 프로젝트는 별도 문의</small></div>
+    <div class="info__c"><h3>— Availability</h3><p>2026 Q3 — OPEN</p><small data-i18n="contact.avail.sub">급한 프로젝트는 별도 문의</small></div>
   </div>
 
   <form class="form" onsubmit="event.preventDefault(); alert('데모 — 실제 발송은 연결되지 않았습니다.');">
@@ -89,31 +89,32 @@
     </div>
     <div class="form__f form__f--full" style="margin-bottom:24px"><label>Timeline</label><input placeholder="예: 2026년 6월 중순, 납품까지 4주"/></div>
     <div class="form__f form__f--full" style="margin-bottom:24px"><label>Brief</label><textarea placeholder="레퍼런스, 무드, 톤, 메시지 — 자유롭게."></textarea></div>
-    <div class="form__a"><span>응답까지 평균 48시간</span><button type="submit" class="btn btn--p">SEND INQUIRY →</button></div>
+    <div class="form__a"><span data-i18n="contact.form.note">응답까지 평균 48시간</span><button type="submit" class="btn btn--p">SEND INQUIRY →</button></div>
   </form>
 </section>
 
 <div class="sh"><h2>Process.</h2><span>5 STEPS · ~4 WEEKS AVG</span></div>
 <section class="proc" id="proc"></section>
 
-<div class="sh"><h2>FAQ.</h2><span>5 · 자주 묻는 질문</span></div>
+<div class="sh"><h2>FAQ.</h2><span data-i18n="contact.faq.subhead">5 · 자주 묻는 질문</span></div>
 <section class="faq" id="faq"></section>
 
 <div id="ft"></div>
 
-<script src="data.js"></script><script src="components.js"></script>
+<script src="i18n.js"></script><script src="data.js"></script><script src="components.js"></script>
 <script>
 document.getElementById('hd').innerHTML = tplHeader('contact');
 document.getElementById('ft').innerHTML = tplFooter();
 
 document.getElementById('proc').innerHTML = TG.process.map(p =>
-  `<div class="proc__c"><div class="proc__n">${p.n}</div><h4>${p.t}</h4><p>${p.d}</p><div class="proc__d">${p.dur}</div></div>`
+  `<div class="proc__c"><div class="proc__n">${p.n}</div><h4>${p.t}</h4><p>${t(p.d, p.d_en)}</p><div class="proc__d">${p.dur}</div></div>`
 ).join('');
 
 document.getElementById('faq').innerHTML = TG.faq.map((f,i) =>
-  `<div class="faq__i"><span class="faq__no">— ${String(i+1).padStart(2,'0')}</span><h4 class="faq__q">${f.q}</h4><p class="faq__a">${f.a}</p></div>`
+  `<div class="faq__i"><span class="faq__no">— ${String(i+1).padStart(2,'0')}</span><h4 class="faq__q">${t(f.q, f.q_en)}</h4><p class="faq__a">${t(f.a, f.a_en)}</p></div>`
 ).join('');
 
+applyI18n();
 ['ptype','pscope'].forEach(id => {
   const g = document.getElementById(id);
   g.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {

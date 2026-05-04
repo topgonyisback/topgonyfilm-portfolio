@@ -47,10 +47,10 @@
 <section class="intro">
   <div>
     <div class="intro__k">— About</div>
-    <h3 class="intro__t">짧게 자르고,<br/>오래 기다립니다.</h3>
+    <h3 class="intro__t" data-i18n="index.intro.heading">짧게 자르고,<br/>오래 기다립니다.</h3>
   </div>
   <div>
-    <p class="intro__b">서울을 기반으로 활동하는 비디오그래퍼 Topgony. 뮤직비디오와 브랜드 필름을 중심으로, 빛과 움직임이 만드는 영화적 순간을 기록합니다. 영상 한 컷은 시간의 조각입니다 — 속도와 호흡, 침묵이 교차하는 자리에서 프레임은 관객의 시선을 이끌고 그 안에 감정을 담습니다.</p>
+    <p class="intro__b" data-i18n="index.intro.body">서울을 기반으로 활동하는 비디오그래퍼 Topgony. 뮤직비디오와 브랜드 필름을 중심으로, 빛과 움직임이 만드는 영화적 순간을 기록합니다. 영상 한 컷은 시간의 조각입니다 — 속도와 호흡, 침묵이 교차하는 자리에서 프레임은 관객의 시선을 이끌고 그 안에 감정을 담습니다.</p>
     <p style="margin-top:24px"><a class="btn" href="about.html">READ FULL BIO →</a></p>
   </div>
 </section>
@@ -65,11 +65,12 @@
 
 <div id="ft"></div>
 
-<script src="data.js"></script><script src="components.js"></script>
+<script src="i18n.js"></script><script src="data.js"></script><script src="components.js"></script>
 <script>
 document.getElementById('hd').innerHTML = tplHeader('index');
 document.getElementById('ft').innerHTML = tplFooter();
 document.getElementById('grid').innerHTML = TG.works.slice(0,8).map(tplCard).join('');
 bindVideos();
+applyI18n();
 </script>
 </body></html>

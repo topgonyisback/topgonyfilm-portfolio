@@ -108,7 +108,7 @@
 </nav>
 <div id="ft"></div>
 
-<script src="data.js"></script><script src="components.js"></script>
+<script src="i18n.js"></script><script src="data.js"></script><script src="components.js"></script>
 <script>
 document.getElementById('hd').innerHTML = tplHeader('work');
 document.getElementById('ft').innerHTML = tplFooter();
@@ -119,7 +119,7 @@ const idx = TG.works.findIndex(x => x.no === no);
 const w = idx >= 0 ? TG.works[idx] : TG.works[0];
 
 // 타이틀
-document.getElementById('pageTitle').textContent = `Topgony — ${w.title}`;
+document.getElementById('pageTitle').textContent = `Topgony — ${t(w.title, w.title_en)}`;
 
 // 브레드크럼
 document.getElementById('crumbs').innerHTML =
@@ -132,7 +132,7 @@ document.getElementById('crumbs').innerHTML =
 document.getElementById('phero').innerHTML =
   `<div>
      <div class="hero__k">— PROJECT / ${w.no} · ${w.year} · ${w.catLabel} · ${w.client}</div>
-     <h1>${w.title}</h1>
+     <h1>${t(w.title, w.title_en)}</h1>
    </div>
    <p class="phero__lede">${w.client} · ${w.catLabel} · ${w.year} · ${w.dur}</p>`;
 
@@ -166,7 +166,7 @@ document.getElementById('pmeta').innerHTML =
 // 본문
 document.getElementById('pbody').innerHTML =
   `<div class="pbody__s">— NOTES<br/>${w.catLabel}<br/>${w.role}<br/><br/>${w.year}.${String(w.month).padStart(2,'0')}</div>
-   <div class="pbody__t"><p>${w.title} — ${w.client} · ${w.year}</p></div>`;
+   <div class="pbody__t"><p>${t(w.title, w.title_en)} — ${w.client} · ${w.year}</p></div>`;
 
 // 크레딧
 const roleMap = {'DIR':'DIRECTOR','DP':'DIRECTOR OF PHOTOGRAPHY','EDIT':'EDITOR'};
@@ -186,7 +186,7 @@ const next = TG.works[(idx + 1) % TG.works.length];
 document.getElementById('nxNext').innerHTML =
   `<a href="project.html#no=${next.no}">
      <div class="nx__k nx__rt">NEXT PROJECT →</div>
-     <div class="nx__t nx__rt">${next.title}</div>
+     <div class="nx__t nx__rt">${t(next.title, next.title_en)}</div>
    </a>`;
 
 // 플레이어 로직

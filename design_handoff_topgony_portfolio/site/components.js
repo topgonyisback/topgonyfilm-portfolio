@@ -32,7 +32,7 @@ window.tplFooter = () => `
   <div class="ft__c"><h5>— Social</h5><ul>
     <li><a href="https://www.instagram.com/topgony/" target="_blank" rel="noopener">Instagram ↗</a></li>
   </ul></div>
-  <div class="ft__m"><span>© 2026 — TOPGONY · ALL RIGHTS RESERVED</span><span>SEOUL · SINCE 2019</span></div>
+  <div class="ft__m"><span>© 2026 — TOPGONY · ALL RIGHTS RESERVED</span><span>SEOUL · SINCE 2019</span><button class="lang-btn" onclick="setLang(TG_LANG==='ko'?'en':'ko')">${TG_LANG==='ko' ? 'EN' : 'KO'}</button></div>
 </footer>`;
 
 // 카드 (매거진 그리드)
@@ -43,7 +43,7 @@ window.tplCard = (w) => `
     <span class="ph__tag">${w.catLabel}</span><span class="ph__dur">${w.dur}</span>
   </div>
   <div class="card__m">
-    <h4 class="card__t">${w.title}</h4>
+    <h4 class="card__t">${t(w.title, w.title_en)}</h4>
     <span class="card__cat">${w.catLabel}</span>
     <span class="card__cl">${w.client} · ${w.year}</span>
   </div>
@@ -74,7 +74,7 @@ window.bindVideos = () => {
 window.tplIdx = (w) => `
 <a class="idx" data-cat="${w.cat}" href="project.html#no=${w.no}">
   <span class="idx__no">— ${w.no}</span>
-  <span class="idx__t">${w.title}</span>
+  <span class="idx__t">${t(w.title, w.title_en)}</span>
   <span class="idx__c">${w.client} — ${w.catLabel}</span>
   <span class="idx__r">${w.role}</span>
   <span class="idx__y">${w.year}.${String(w.month).padStart(2,'0')}</span>
