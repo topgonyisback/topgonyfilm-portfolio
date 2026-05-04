@@ -15,21 +15,9 @@
 .player { position:relative; background:#0a0a0a; overflow:hidden; flex-shrink:0; }
 .player.ratio-916 { width:360px; aspect-ratio:9/16; }
 .player.ratio-169 { width:min(720px, 100%); aspect-ratio:16/9; }
+.player__yt { position:absolute; inset:0; }
+.player__yt iframe { width:100%; height:100%; border:0; display:block; }
 .player__thumb { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-.player__vid { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none; }
-.player__pl { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:80px; height:80px; border-radius:50%; border:1px solid rgba(255,255,255,0.8); background:rgba(0,0,0,0.4); color:#fff; backdrop-filter:blur(8px); display:grid; place-items:center; cursor:pointer; transition: opacity 0.25s, background 0.2s; z-index:3; }
-.player__pl:hover { background:rgba(255,255,255,0.15); }
-.player__pl.is-playing { opacity:0; }
-.player:hover .player__pl.is-playing { opacity:1; }
-.player__ctrl { position:absolute; bottom:0; left:0; right:0; z-index:4; padding:32px 14px 14px; background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%); opacity:0; transition:opacity 0.25s; pointer-events:none; }
-.player:hover .player__ctrl,
-.player.is-active .player__ctrl { opacity:1; pointer-events:auto; }
-.player__seek { position:relative; height:3px; background:rgba(255,255,255,0.25); cursor:pointer; border-radius:2px; margin-bottom:10px; }
-.player__seek:hover { height:5px; margin-bottom:8px; }
-.player__seek-fill { position:relative; height:100%; background:#fff; border-radius:2px; width:0%; pointer-events:none; transition:width 0.05s linear; }
-.player__seek-thumb { position:absolute; top:50%; right:-6px; transform:translateY(-50%); width:12px; height:12px; border-radius:50%; background:#fff; opacity:0; transition:opacity 0.15s; pointer-events:none; }
-.player__seek:hover .player__seek-thumb { opacity:1; }
-.player__time { display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; color:rgba(255,255,255,0.8); letter-spacing:0.05em; }
 
 .pmeta { padding:48px var(--side-pad); display:grid; grid-template-columns:repeat(6,1fr); gap:32px; border-bottom:1px solid var(--border-subtle); }
 .pmeta dt { font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); margin:0 0 8px; }
@@ -52,13 +40,6 @@
 .nx__t { font-family:var(--font-display); font-size:48px; font-weight:500; letter-spacing:-0.03em; line-height:1; transition: color var(--d-base) var(--e-out); }
 .nx a:hover .nx__t { color:var(--text-muted); }
 .nx__rt { text-align:right; }
-/* 터치 기기: hover 고착 방지 + 탭으로 컨트롤 토글 */
-@media (hover: none) {
-  .player:hover .player__pl.is-playing { opacity:0; }
-  .player:hover .player__ctrl { opacity:0; pointer-events:none; }
-  .player.show-ctrl .player__pl.is-playing { opacity:1; }
-  .player.show-ctrl .player__ctrl { opacity:1; pointer-events:auto; }
-}
 @media (max-width:640px) {
   .crumbs { padding:72px 16px 12px; gap:8px; flex-wrap:wrap; }
   .phero { grid-template-columns:1fr; padding:0 16px 32px; gap:20px; }
@@ -81,24 +62,7 @@
 <div id="crumbs" class="crumbs"></div>
 <section id="phero" class="phero"></section>
 <div class="player-wrap">
-  <div class="player" id="player">
-    <img class="player__thumb" id="playerThumb" src="" alt=""/>
-    <video class="player__vid" id="playerVid" playsinline preload="metadata"></video>
-    <button class="player__pl" id="playerBtn" aria-label="Play">
-      <svg width="24" height="24" viewBox="0 0 22 22" fill="currentColor"><path d="M6 3l13 8-13 8V3z"/></svg>
-    </button>
-    <div class="player__ctrl" id="playerCtrl">
-      <div class="player__seek" id="seekBar">
-        <div class="player__seek-fill" id="seekFill">
-          <div class="player__seek-thumb"></div>
-        </div>
-      </div>
-      <div class="player__time">
-        <span id="timeCur">0:00</span>
-        <span id="timeDur">0:00</span>
-      </div>
-    </div>
-  </div>
+  <div class="player" id="player"></div>
 </div>
 <dl class="pmeta" id="pmeta"></dl>
 <section class="pbody" id="pbody"></section>
@@ -147,17 +111,11 @@ document.getElementById('phero').innerHTML =
 const player = document.getElementById('player');
 player.classList.add(w.ratio === '16/9' ? 'ratio-169' : 'ratio-916');
 
-// 썸네일 / 영상 세팅
-const thumb = document.getElementById('playerThumb');
-const vid = document.getElementById('playerVid');
-const btn = document.getElementById('playerBtn');
-
-if (w.thumb) { thumb.src = w.thumb; thumb.alt = w.title; }
-
-if (w.video) {
-  vid.src = w.video;
-} else {
-  btn.style.display = 'none';
+// YouTube iframe 또는 썸네일 fallback 렌더링
+if (w.youtube_id) {
+  player.innerHTML = `<div class="player__yt"><iframe src="https://www.youtube.com/embed/${w.youtube_id}?rel=0&modestbranding=1" title="${t(w.title, w.title_en)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`;
+} else if (w.thumb) {
+  player.innerHTML = `<img class="player__thumb" src="${w.thumb}" alt="${t(w.title, w.title_en)}"/>`;
 }
 
 // 메타 정보
@@ -186,7 +144,6 @@ document.getElementById('creds').innerHTML = credRows.map(([k,v]) =>
 // 관련 작품 (현재 작품 제외, 최대 3개)
 const related = TG.works.filter(x => x.no !== w.no).slice(0, 3).map(x => ({...x, span:4}));
 document.getElementById('related').innerHTML = related.map(tplCard).join('');
-bindVideos();
 
 // 다음 작품 네비게이션
 const next = TG.works[(idx + 1) % TG.works.length];
@@ -196,85 +153,5 @@ document.getElementById('nxNext').innerHTML =
      <div class="nx__t nx__rt">${t(next.title, next.title_en)}</div>
    </a>`;
 
-// 플레이어 로직
-if (w.video) {
-  const seekBar  = document.getElementById('seekBar');
-  const seekFill = document.getElementById('seekFill');
-  const timeCur  = document.getElementById('timeCur');
-  const timeDur  = document.getElementById('timeDur');
-  const PLAY_IC  = '<svg width="24" height="24" viewBox="0 0 22 22" fill="currentColor"><path d="M6 3l13 8-13 8V3z"/></svg>';
-  const PAUSE_IC = '<svg width="20" height="20" viewBox="0 0 22 22" fill="currentColor"><rect x="4" y="3" width="4" height="16"/><rect x="14" y="3" width="4" height="16"/></svg>';
-  const fmt = s => `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-
-  btn.addEventListener('click', () => {
-    if (vid.paused) {
-      vid.style.display = 'block';
-      thumb.style.display = 'none';
-      player.classList.add('is-active');
-      vid.play();
-      btn.classList.add('is-playing');
-      btn.innerHTML = PAUSE_IC;
-    } else {
-      vid.pause();
-      btn.classList.remove('is-playing');
-      btn.innerHTML = PLAY_IC;
-    }
-  });
-
-  vid.addEventListener('ended', () => {
-    vid.style.display = 'none';
-    thumb.style.display = 'block';
-    player.classList.remove('is-active');
-    btn.classList.remove('is-playing');
-    btn.innerHTML = PLAY_IC;
-    seekFill.style.width = '0%';
-    timeCur.textContent = '0:00';
-  });
-
-  vid.addEventListener('loadedmetadata', () => { timeDur.textContent = fmt(vid.duration); });
-
-  vid.addEventListener('timeupdate', () => {
-    if (!vid.duration) return;
-    seekFill.style.width = (vid.currentTime / vid.duration * 100) + '%';
-    timeCur.textContent = fmt(vid.currentTime);
-  });
-
-  let isSeeking = false;
-  const seek = e => {
-    const rect = seekBar.getBoundingClientRect();
-    const pct = Math.max(0, Math.min(e.clientX - rect.left, rect.width)) / rect.width;
-    vid.currentTime = pct * vid.duration;
-    seekFill.style.width = (pct * 100) + '%';
-    timeCur.textContent = fmt(vid.currentTime);
-  };
-  seekBar.addEventListener('mousedown', e => {
-    isSeeking = true;
-    if (vid.style.display === 'none') { vid.style.display = 'block'; thumb.style.display = 'none'; player.classList.add('is-active'); }
-    seek(e);
-  });
-  document.addEventListener('mousemove', e => { if (isSeeking) seek(e); });
-  document.addEventListener('mouseup', () => { isSeeking = false; });
-
-  // 모바일: 영상 탭 → 컨트롤 3초 표시 후 자동 숨김
-  let ctrlTimer;
-  const showCtrlBriefly = () => {
-    player.classList.add('show-ctrl');
-    clearTimeout(ctrlTimer);
-    ctrlTimer = setTimeout(() => player.classList.remove('show-ctrl'), 3000);
-  };
-  player.addEventListener('touchend', e => {
-    if (e.target === btn || e.target.closest('button') === btn) return;
-    if (!vid.paused) {
-      if (player.classList.contains('show-ctrl')) {
-        player.classList.remove('show-ctrl');
-        clearTimeout(ctrlTimer);
-      } else {
-        showCtrlBriefly();
-      }
-    }
-  });
-  // 재생 시작하면 3초 후 자동 숨김
-  vid.addEventListener('play', showCtrlBriefly);
-}
 </script>
 </body></html>
