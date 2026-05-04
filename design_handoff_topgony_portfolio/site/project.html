@@ -97,7 +97,7 @@ document.getElementById('crumbs').innerHTML =
   `<a href="index.html">TOPGONY</a><span>/</span>
    <a href="work.html">WORK</a><span>/</span>
    <span>${w.catLabel}</span><span>/</span>
-   <span class="cur">${w.no} — ${w.title}</span>`;
+   <span class="cur">${w.no} — ${t(w.title, w.title_en)}</span>`;
 
 // 히어로
 document.getElementById('phero').innerHTML =

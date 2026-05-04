@@ -61,13 +61,20 @@
 
   <form class="form" onsubmit="event.preventDefault(); alert('데모 — 실제 발송은 연결되지 않았습니다.');">
     <div class="form__r">
-      <div class="form__f"><label>Name</label><input placeholder="홍길동"/></div>
+      <div class="form__f"><label>Name</label><input data-i18n-placeholder="contact.form.name" placeholder="홍길동"/></div>
       <div class="form__f"><label>Email</label><input type="email" placeholder="you@studio.com"/></div>
     </div>
     <div class="form__r">
       <div class="form__f"><label>Company / Brand</label><input placeholder="Studio Hexagon"/></div>
       <div class="form__f"><label>Budget (KRW)</label>
-        <select><option>— 선택</option><option>~ 500만</option><option>500 — 1,500만</option><option>1,500 — 3,000만</option><option>3,000 — 7,000만</option><option>7,000만 +</option></select>
+        <select>
+          <option data-i18n="contact.budget.select">— 선택</option>
+          <option data-i18n="contact.budget.1">~ 500만</option>
+          <option data-i18n="contact.budget.2">500 — 1,500만</option>
+          <option data-i18n="contact.budget.3">1,500 — 3,000만</option>
+          <option data-i18n="contact.budget.4">3,000 — 7,000만</option>
+          <option data-i18n="contact.budget.5">7,000만 +</option>
+        </select>
       </div>
     </div>
     <div class="form__f form__f--full" style="margin-bottom:24px"><label>Project type</label>
@@ -82,13 +89,13 @@
     </div>
     <div class="form__f form__f--full" style="margin-bottom:24px"><label>Scope</label>
       <div class="chips" id="pscope">
-        <button type="button" class="chip">촬영만</button>
-        <button type="button" class="chip is-active">촬영 + 편집</button>
-        <button type="button" class="chip">전 프로세스</button>
+        <button type="button" class="chip" data-i18n="contact.scope.shoot">촬영만</button>
+        <button type="button" class="chip is-active" data-i18n="contact.scope.shootedit">촬영 + 편집</button>
+        <button type="button" class="chip" data-i18n="contact.scope.full">전 프로세스</button>
       </div>
     </div>
-    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Timeline</label><input placeholder="예: 2026년 6월 중순, 납품까지 4주"/></div>
-    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Brief</label><textarea placeholder="레퍼런스, 무드, 톤, 메시지 — 자유롭게."></textarea></div>
+    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Timeline</label><input data-i18n-placeholder="contact.form.timeline" placeholder="예: 2026년 6월 중순, 납품까지 4주"/></div>
+    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Brief</label><textarea data-i18n-placeholder="contact.form.brief" placeholder="레퍼런스, 무드, 톤, 메시지 — 자유롭게."></textarea></div>
     <div class="form__a"><span data-i18n="contact.form.note">응답까지 평균 48시간</span><button type="submit" class="btn btn--p">SEND INQUIRY →</button></div>
   </form>
 </section>

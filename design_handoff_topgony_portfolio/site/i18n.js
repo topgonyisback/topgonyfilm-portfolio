@@ -58,6 +58,26 @@ window.I18N = {
     ko: '5 · 자주 묻는 질문',
     en: '5 · FREQUENTLY ASKED QUESTIONS'
   },
+
+  // contact.html form fields
+  'contact.form.name': { ko: '홍길동', en: 'Full Name' },
+  'contact.form.timeline': {
+    ko: '예: 2026년 6월 중순, 납품까지 4주',
+    en: 'e.g. Mid-June 2026, 4 weeks to delivery'
+  },
+  'contact.form.brief': {
+    ko: '레퍼런스, 무드, 톤, 메시지 — 자유롭게.',
+    en: 'References, mood, tone, message — feel free.'
+  },
+  'contact.scope.shoot':     { ko: '촬영만',        en: 'Shoot only' },
+  'contact.scope.shootedit': { ko: '촬영 + 편집',   en: 'Shoot + Edit' },
+  'contact.scope.full':      { ko: '전 프로세스',   en: 'Full Production' },
+  'contact.budget.select': { ko: '— 선택',          en: '— Select' },
+  'contact.budget.1': { ko: '~ 500만',              en: '~ ₩5M' },
+  'contact.budget.2': { ko: '500 — 1,500만',        en: '₩5M — ₩15M' },
+  'contact.budget.3': { ko: '1,500 — 3,000만',      en: '₩15M — ₩30M' },
+  'contact.budget.4': { ko: '3,000 — 7,000만',      en: '₩30M — ₩70M' },
+  'contact.budget.5': { ko: '7,000만 +',            en: '₩70M+' },
 };
 
 window.applyI18n = () => {
