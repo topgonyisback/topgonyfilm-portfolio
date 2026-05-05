@@ -1,5 +1,9 @@
 // Topgony 포트폴리오 — 언어 설정 (i18n)
-window.TG_LANG = localStorage.getItem('tg-lang') || 'ko';
+const _urlParam = new URLSearchParams(location.search).get('lang');
+const _saved    = localStorage.getItem('tg-lang');
+const _browser  = navigator.language?.toLowerCase().startsWith('ko') ? 'ko' : 'en';
+window.TG_LANG  = _urlParam || _saved || _browser;
+if (_urlParam) localStorage.setItem('tg-lang', _urlParam);
 
 window.t = (ko, en) => (TG_LANG === 'en' && en) ? en : ko;
 

@@ -5,6 +5,7 @@
 .hero-film { position:relative; overflow:hidden; min-height:80vh; display:flex; flex-direction:column; justify-content:flex-end; border-bottom:1px solid var(--border-subtle); }
 .hero-film__bg { position:absolute; inset:0; }
 .hero-film__bg .ph { width:100%; height:100%; aspect-ratio:unset !important; }
+.hero-film__vid { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
 .hero-film__bg::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 100%); z-index:1; }
 .hero-film__content { position:relative; z-index:2; padding:60px var(--side-pad) 48px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:end; }
 .intro { padding:80px var(--side-pad); display:grid; grid-template-columns:1fr 2fr; gap:64px; border-bottom:1px solid var(--border-subtle); }
@@ -28,9 +29,9 @@
 
 <section class="hero-film">
   <div class="hero-film__bg">
-    <div class="ph" data-r="">
-      <span class="ph__tag">MUSIC VIDEO</span><span class="ph__dur">04:21</span>
-    </div>
+    <video class="hero-film__vid" autoplay muted loop playsinline preload="auto">
+      <source src="videos/hero.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="hero-film__content">
     <div>
