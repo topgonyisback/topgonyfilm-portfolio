@@ -1,8 +1,21 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Topgony — Contact</title>
+<meta name="description" content="프로젝트 문의 및 협업 제안. 48시간 내 회신드립니다."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://topgonyisback.github.io/topgony-portfolio/contact.html"/>
+<meta property="og:title" content="Contact — Topgony"/>
+<meta property="og:description" content="프로젝트 문의 및 협업 제안. 48시간 내 회신드립니다."/>
+<meta property="og:image" content="https://topgonyisback.github.io/topgony-portfolio/photos/about-3.jpeg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Contact — Topgony"/>
+<meta name="twitter:description" content="프로젝트 문의 및 협업 제안. 48시간 내 회신드립니다."/>
+<meta name="twitter:image" content="https://topgonyisback.github.io/topgony-portfolio/photos/about-3.jpeg"/>
 <link rel="stylesheet" href="site.css"/>
 <style>
 .cm { padding:80px var(--side-pad); display:grid; grid-template-columns:1fr 1.2fr; gap:80px; border-bottom:1px solid var(--border-subtle); }
+.toast { position:fixed; bottom:40px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--text); color:#000; font-family:var(--font-mono); font-size:15px; letter-spacing:var(--ls-meta); text-transform:uppercase; padding:18px 36px; white-space:nowrap; opacity:0; transition:opacity 0.3s ease, transform 0.3s ease; pointer-events:none; z-index:999; }
+.toast.is-error { background:#e55; color:#fff; }
+.toast.is-show { opacity:1; transform:translateX(-50%) translateY(0); }
 .info { display:flex; flex-direction:column; gap:36px; }
 .info__c { border-top:1px solid var(--border-subtle); padding-top:18px; }
 .info__c h3 { font-family:var(--font-mono); font-size:10px; letter-spacing:var(--ls-meta); text-transform:uppercase; color:var(--text-dim); margin:0 0 10px; font-weight:400; }
@@ -47,27 +60,31 @@
 <div id="hd"></div>
 
 <section class="hero">
-  <div><div class="hero__k">— Contact / Start a project</div><h1>Say<br/><em>hello.</em></h1></div>
-  <div class="hero__s">NEXT AVAILABLE — 2026 Q3<br/>AVERAGE RESPONSE — 48H<br/><br/>OR JUST EMAIL DIRECTLY →<br/>TOPGONYFILM@GMAIL.COM</div>
+  <div><div class="hero__k anim" style="animation-delay:0.05s">— Contact / Start a project</div><h1 class="anim" style="animation-delay:0.18s">Say<br/><em>hello.</em></h1></div>
+  <div class="hero__s anim" style="animation-delay:0.32s">NEXT AVAILABLE — 2026 Q3<br/>AVERAGE RESPONSE — 48H<br/><br/>OR JUST EMAIL DIRECTLY →<br/>TOPGONYFILM@GMAIL.COM</div>
 </section>
 
 <section class="cm">
   <div class="info">
-    <div class="info__c"><h3>— Email</h3><p><a href="mailto:topgonyfilm@gmail.com">topgonyfilm@gmail.com</a></p><small data-i18n="contact.email.sub">업무 문의 · 평균 48시간 회신</small></div>
-    <div class="info__c"><h3>— Phone</h3><p>+82 10 2887 1388</p><small data-i18n="contact.phone.sub">평일 10:00 — 19:00 KST</small></div>
+    <div class="info__c"><h3>— Email</h3><p><a class="copy-email" data-email="topgonyfilm@gmail.com" style="cursor:pointer; border-bottom:1px solid var(--border); padding-bottom:2px;">topgonyfilm@gmail.com</a></p><small data-i18n="contact.email.sub">업무 문의 · 평균 48시간 회신</small></div>
+    <div class="info__c"><h3>— Phone</h3><p><a class="copy-phone" data-phone="+82 10 2887 1388" style="cursor:pointer; border-bottom:1px solid var(--border); padding-bottom:2px;">+82 10 2887 1388</a></p><small data-i18n="contact.phone.sub">평일 10:00 — 19:00 KST</small></div>
     <div class="info__c"><h3>— Social</h3><p><a href="https://www.instagram.com/topgony/" target="_blank" rel="noopener">Instagram ↗</a></p><small>@topgony</small></div>
     <div class="info__c"><h3>— Availability</h3><p>2026 Q3 — OPEN</p><small data-i18n="contact.avail.sub">급한 프로젝트는 별도 문의</small></div>
   </div>
 
-  <form class="form" onsubmit="event.preventDefault(); alert('데모 — 실제 발송은 연결되지 않았습니다.');">
+  <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="6fcebde7-6645-43b7-b7f9-6b3d8e268b70"/>
+    <input type="hidden" name="subject" value="[Topgony] 새 프로젝트 문의"/>
+    <input type="hidden" name="from_name" value="Topgony Portfolio"/>
+    <input type="checkbox" name="botcheck" style="display:none"/>
     <div class="form__r">
-      <div class="form__f"><label>Name</label><input data-i18n-placeholder="contact.form.name" placeholder="홍길동"/></div>
-      <div class="form__f"><label>Email</label><input type="email" placeholder="you@studio.com"/></div>
+      <div class="form__f"><label>Name</label><input name="name" data-i18n-placeholder="contact.form.name" placeholder="홍길동"/></div>
+      <div class="form__f"><label>Email</label><input type="email" name="email" placeholder="you@studio.com"/></div>
     </div>
     <div class="form__r">
-      <div class="form__f"><label>Company / Brand</label><input placeholder="Studio Hexagon"/></div>
+      <div class="form__f"><label>Company / Brand</label><input name="company" placeholder="Studio Hexagon"/></div>
       <div class="form__f"><label>Budget (KRW)</label>
-        <select>
+        <select name="budget">
           <option data-i18n="contact.budget.select">— 선택</option>
           <option data-i18n="contact.budget.1">~ 500만</option>
           <option data-i18n="contact.budget.2">500 — 1,500만</option>
@@ -94,8 +111,8 @@
         <button type="button" class="chip" data-i18n="contact.scope.full">전 프로세스</button>
       </div>
     </div>
-    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Timeline</label><input data-i18n-placeholder="contact.form.timeline" placeholder="예: 2026년 6월 중순, 납품까지 4주"/></div>
-    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Brief</label><textarea data-i18n-placeholder="contact.form.brief" placeholder="레퍼런스, 무드, 톤, 메시지 — 자유롭게."></textarea></div>
+    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Timeline</label><input name="timeline" data-i18n-placeholder="contact.form.timeline" placeholder="예: 2026년 6월 중순, 납품까지 4주"/></div>
+    <div class="form__f form__f--full" style="margin-bottom:24px"><label>Brief</label><textarea name="brief" data-i18n-placeholder="contact.form.brief" placeholder="레퍼런스, 무드, 톤, 메시지 — 자유롭게."></textarea></div>
     <div class="form__a"><span data-i18n="contact.form.note">응답까지 평균 48시간</span><button type="submit" class="btn btn--p">SEND INQUIRY →</button></div>
   </form>
 </section>
@@ -106,6 +123,7 @@
 <div class="sh"><h2>FAQ.</h2><span data-i18n="contact.faq.subhead">5 · 자주 묻는 질문</span></div>
 <section class="faq" id="faq"></section>
 
+<div class="toast" id="toast"></div>
 <div id="ft"></div>
 
 <script src="i18n.js"></script><script src="data.js"></script><script src="components.js"></script>
@@ -114,7 +132,7 @@ document.getElementById('hd').innerHTML = tplHeader('contact');
 document.getElementById('ft').innerHTML = tplFooter();
 
 document.getElementById('proc').innerHTML = TG.process.map(p =>
-  `<div class="proc__c"><div class="proc__n">${p.n}</div><h4>${p.t}</h4><p>${t(p.d, p.d_en)}</p><div class="proc__d">${p.dur}</div></div>`
+  `<div class="proc__c"><div class="proc__n">${p.n}</div><h4>${p.t}</h4><p>${t(p.d, p.d_en)}</p><div class="proc__d">${t(p.dur, p.dur_en)}</div></div>`
 ).join('');
 
 document.getElementById('faq').innerHTML = TG.faq.map((f,i) =>
@@ -122,6 +140,44 @@ document.getElementById('faq').innerHTML = TG.faq.map((f,i) =>
 ).join('');
 
 applyI18n();
+bindCopyPhone();
+
+// 토스트 알림
+function showToast(msg, isError = false) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.toggle('is-error', isError);
+  toast.classList.add('is-show');
+  setTimeout(() => toast.classList.remove('is-show'), 4000);
+}
+
+// Web3Forms 제출 처리
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('[type=submit]');
+  btn.disabled = true;
+  btn.textContent = 'SENDING...';
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: new FormData(this)
+    });
+    const json = await res.json();
+    if (json.success) {
+      showToast(TG_LANG === 'ko' ? '— 문의가 전달되었습니다. 곧 연락드리겠습니다.' : '— Inquiry sent. We\'ll be in touch shortly.');
+      this.reset();
+      btn.textContent = 'SENT ✓';
+      setTimeout(() => { btn.disabled = false; btn.textContent = 'SEND INQUIRY →'; }, 4000);
+    } else {
+      throw new Error();
+    }
+  } catch {
+    showToast(TG_LANG === 'ko' ? '전송에 실패했습니다. 이메일로 직접 연락해 주세요.' : 'Something went wrong. Please email us directly.', true);
+    btn.disabled = false;
+    btn.textContent = 'SEND INQUIRY →';
+  }
+});
+
 ['ptype','pscope'].forEach(id => {
   const g = document.getElementById(id);
   g.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {

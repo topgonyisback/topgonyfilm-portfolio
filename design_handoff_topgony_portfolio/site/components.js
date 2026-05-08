@@ -27,7 +27,7 @@ window.tplFooter = () => `
     <li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
   </ul></div>
   <div class="ft__c"><h5>— Contact</h5><ul>
-    <li><a href="mailto:${T.brand.email}">${T.brand.email}</a></li><li><a>${T.brand.phone}</a></li>
+    <li><a class="copy-email" data-email="${T.brand.email}" style="cursor:pointer;">${T.brand.email}</a></li><li><a class="copy-phone" data-phone="${T.brand.phone}" style="cursor:pointer;">${T.brand.phone}</a></li>
   </ul></div>
   <div class="ft__c"><h5>— Social</h5><ul>
     <li><a href="https://www.instagram.com/topgony/" target="_blank" rel="noopener">Instagram ↗</a></li>
@@ -48,6 +48,14 @@ window.tplCard = (w) => `
     <span class="card__cl">${w.client} · ${w.year}</span>
   </div>
 </a>`;
+
+// 카드 진입 애니메이션
+window.bindCardAnim = () => {
+  document.querySelectorAll('.card').forEach((card, i) => {
+    card.classList.add('anim');
+    card.style.animationDelay = `${0.05 + i * 0.07}s`;
+  });
+};
 
 // 카드 비디오 호버 재생
 window.bindVideos = () => {
@@ -98,4 +106,26 @@ window.bindFilter = () => {
       el.style.display = (cat === 'all' || el.dataset.cat === cat) ? '' : 'none';
     });
   }));
+};
+
+// 전화번호 / 이메일 클립보드 복사
+window.bindCopyPhone = () => {
+  document.querySelectorAll('.copy-phone').forEach(el => {
+    el.addEventListener('click', () => {
+      navigator.clipboard.writeText(el.dataset.phone).then(() => {
+        const orig = el.textContent;
+        el.textContent = TG_LANG === 'ko' ? '복사됨 ✓' : 'Copied ✓';
+        setTimeout(() => el.textContent = orig, 2000);
+      });
+    });
+  });
+  document.querySelectorAll('.copy-email').forEach(el => {
+    el.addEventListener('click', () => {
+      navigator.clipboard.writeText(el.dataset.email).then(() => {
+        const orig = el.textContent;
+        el.textContent = TG_LANG === 'ko' ? '복사됨 ✓' : 'Copied ✓';
+        setTimeout(() => el.textContent = orig, 2000);
+      });
+    });
+  });
 };

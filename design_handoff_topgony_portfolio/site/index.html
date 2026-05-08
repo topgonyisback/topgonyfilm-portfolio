@@ -1,5 +1,15 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Topgony — Frames that breathe</title>
+<meta name="description" content="서울 기반 비디오그래퍼 Topgony. 뮤직비디오, 브랜드 필름, 패션 필름 전문. Seoul-based videographer specializing in music videos and brand films."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://topgonyisback.github.io/topgony-portfolio/"/>
+<meta property="og:title" content="Topgony — Videographer · Director · DP"/>
+<meta property="og:description" content="서울 기반 비디오그래퍼 Topgony. 뮤직비디오, 브랜드 필름, 패션 필름 전문. Seoul-based videographer specializing in music videos and brand films."/>
+<meta property="og:image" content="https://topgonyisback.github.io/topgony-portfolio/photos/about-3.jpeg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Topgony — Videographer · Director · DP"/>
+<meta name="twitter:description" content="서울 기반 비디오그래퍼 Topgony. 뮤직비디오, 브랜드 필름, 패션 필름 전문."/>
+<meta name="twitter:image" content="https://topgonyisback.github.io/topgony-portfolio/photos/about-3.jpeg"/>
 <link rel="stylesheet" href="site.css"/>
 <style>
 .hero-film { position:relative; overflow:hidden; min-height:80vh; display:flex; flex-direction:column; justify-content:flex-end; border-bottom:1px solid var(--border-subtle); }
@@ -10,7 +20,7 @@
 .hero-film__content { position:relative; z-index:2; padding:60px var(--side-pad) 48px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:end; }
 .intro { padding:80px var(--side-pad); display:grid; grid-template-columns:1fr 2fr; gap:64px; border-bottom:1px solid var(--border-subtle); }
 .intro__k { font-family:var(--font-mono); font-size:11px; letter-spacing:var(--ls-meta); color:var(--text-dim); text-transform:uppercase; margin-bottom:16px; }
-.intro__t { font-family:var(--font-display); font-size:clamp(40px,5vw,72px); font-weight:500; letter-spacing:-0.03em; line-height:1; margin:0 0 24px; }
+.intro__t { font-family:var(--font-display); font-size:clamp(32px,5vw,72px); font-weight:500; letter-spacing:-0.03em; line-height:1; margin:0 0 24px; word-break:keep-all; overflow-wrap:break-word; }
 .intro__b { font-size:18px; line-height:1.6; color:var(--text-muted); max-width:60ch; }
 .cta { padding:120px var(--side-pad); border-top:1px solid var(--border-subtle); display:grid; grid-template-columns:1fr auto; gap:48px; align-items:end; }
 .cta h2 { font-family:var(--font-display); font-size:clamp(64px,9vw,140px); font-weight:500; line-height:0.88; letter-spacing:-0.045em; margin:0; }
@@ -20,6 +30,7 @@
 @media (max-width:640px) {
   .hero-film__content { grid-template-columns:1fr; padding:40px 16px 32px; gap:24px; }
   .intro { grid-template-columns:1fr; padding:48px 16px; gap:32px; }
+  .intro__t { font-size:clamp(24px, 7vw, 36px); }
   .intro__b { font-size:16px; }
   .cta { grid-template-columns:1fr; padding:64px 16px; gap:24px; }
   .cta__r { align-items:flex-start; }
@@ -35,10 +46,10 @@
   </div>
   <div class="hero-film__content">
     <div>
-      <div class="hero__k">— Topgony / Director · DP</div>
-      <h1>Frames<br/>that <em>breathe</em><br/>between cuts.</h1>
+      <div class="hero__k anim" style="animation-delay:0.05s">— Topgony / Director · DP</div>
+      <h1 class="anim" style="animation-delay:0.18s" data-i18n="hero.h1">필요한 것만,<br/>화면에 담습니다.</h1>
     </div>
-    <div class="hero__s">SEOUL — SINCE 2019<br/>42 FILMS · 30+ CLIENTS<br/><br/>MV · BRAND · FASHION · CF<br/>16:9 / 9:16 · 4K</div>
+    <div class="hero__s anim" style="animation-delay:0.32s">SEOUL — SINCE 2019<br/>42 FILMS · 30+ CLIENTS<br/><br/>MV · BRAND · FASHION · CF<br/>16:9 / 9:16 · 4K</div>
   </div>
 </section>
 
@@ -59,7 +70,7 @@
 <section class="cta">
   <h2>Let's make<br/>something <em>loud.</em></h2>
   <div class="cta__r">
-    <span>topgonyfilm@gmail.com</span>
+    <span class="copy-email" data-email="topgonyfilm@gmail.com" style="cursor:pointer;">topgonyfilm@gmail.com</span>
     <a class="btn btn--p btn--lg" href="contact.html">START A PROJECT →</a>
   </div>
 </section>
@@ -72,6 +83,8 @@ document.getElementById('hd').innerHTML = tplHeader('index');
 document.getElementById('ft').innerHTML = tplFooter();
 document.getElementById('grid').innerHTML = TG.works.slice(0,8).map(tplCard).join('');
 bindVideos();
+bindCardAnim();
 applyI18n();
+bindCopyPhone();
 </script>
 </body></html>
